@@ -15,4 +15,13 @@ I have developed a web application in the Golang.
 
 and more...
 
+## run
+
+```
+% cd /path/to/gogogo
+% fresh
+```
+
+access to `http://localhost:8000`
+
 &copy; funnythingz
