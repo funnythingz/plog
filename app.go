@@ -5,6 +5,8 @@ import (
 )
 
 func main() {
+	DbConnect()
+
 	goji.Get("/", top)
 	goji.Get("/:id", hello)
 	goji.Serve()
