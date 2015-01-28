@@ -27,5 +27,4 @@ _testmain.go
 *.swp
 tmp
 gin-bin
-db
 database.yml
