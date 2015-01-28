@@ -24,4 +24,10 @@ and more...
 
 access to `http://localhost:8000`
 
+## migration
+
+```
+% go run migrate/migration.go
+```
+
 &copy; funnythingz
