@@ -28,7 +28,7 @@ and more...
 ├── migrate
 │   └── migration.go
 ├── models
-    ├── hoge.go
+│   ├── hoge.go
 │   └── foo.go
 └── views
     ├── layouts
