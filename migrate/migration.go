@@ -8,11 +8,19 @@ import (
 
 func main() {
 	dbmap.DbConnect()
-	DBMigrate()
+	reset()
+	create()
+	migrate()
 }
 
-func DBMigrate() {
+func reset() {
 	log.Println(dbmap.Dbmap.DropTableIfExists(&model.Entry{}))
+}
+
+func create() {
 	log.Println(dbmap.Dbmap.CreateTable(&model.Entry{}))
+}
+
+func migrate() {
 	log.Println(dbmap.Dbmap.AutoMigrate(&model.Entry{}))
 }
