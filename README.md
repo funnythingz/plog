@@ -1,6 +1,6 @@
 # GoGoGo
 
-I have developed a web application in the Golang.
+This is web application in the Golang project template.
 
 ## use package
 
@@ -14,6 +14,28 @@ I have developed a web application in the Golang.
 - Image Resize ... https://github.com/nfnt/resize
 
 and more...
+
+## tree
+
+```
+├── app.go
+├── controller.go
+├── database.yml
+├── db
+│   └── dbmap.go
+├── helper
+│   └── helper.go
+├── migrate
+│   └── migration.go
+├── models
+    ├── hoge.go
+│   └── foo.go
+└── views
+    ├── layouts
+    │   └── layout.ace
+    ├── index.ace
+    └── show.ace
+```
 
 ## run
 
