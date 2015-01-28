@@ -1,11 +1,12 @@
 package main
 
 import (
+	"./db"
 	"github.com/zenazn/goji"
 )
 
 func main() {
-	DbConnect()
+	dbmap.DbConnect()
 
 	goji.Get("/", top)
 	goji.Get("/:id", hello)
