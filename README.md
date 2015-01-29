@@ -31,6 +31,8 @@ and more...
 ├── models
 │   ├── hoge.go
 │   └── foo.go
+├── spec
+│   └── hoge_test.go
 └── views
     ├── layouts
     │   └── layout.ace
@@ -51,6 +53,13 @@ access to `http://localhost:8000`
 
 ```
 % go run migrate/migration.go
+```
+
+## test
+
+```
+% cd spec/
+% go test -v
 ```
 
 &copy; funnythingz
