@@ -1,35 +1,22 @@
 package main
 
 import (
+	"./helper"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
 	"net/http"
 )
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, err := ace.Load("views/layouts/layout", "views/top", nil)
+	tpl, _ := ace.Load("views/layouts/layout", "views/top", nil)
+	err := tpl.Execute(w, map[string]string{"Title": "Welcome"})
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if err := tpl.Execute(w, map[string]string{"Title": "Welcome"}); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	helper.InternalServerErrorCheck(err, w)
 }
 
-func hello(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, err := ace.Load("views/layouts/layout", "views/show", nil)
+func article(c web.C, w http.ResponseWriter, r *http.Request) {
+	tpl, _ := ace.Load("views/layouts/layout", "views/show", nil)
+	err := tpl.Execute(w, map[string]string{"Title": "Yeah, " + c.URLParams["basename"] + "!"})
 
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if err := tpl.Execute(w, map[string]string{"Title": "Yeah, " + c.URLParams["id"] + "!"}); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
+	helper.InternalServerErrorCheck(err, w)
 }
