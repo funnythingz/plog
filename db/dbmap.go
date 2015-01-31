@@ -12,7 +12,7 @@ import (
 
 var Dbmap gorm.DB
 
-func DbConnect() {
+func DbDevelopmentConnect() {
 	m := make(map[interface{}]interface{})
 	config, _ := ioutil.ReadFile("database.yml")
 	err := yaml.Unmarshal([]byte(config), &m)
@@ -23,6 +23,29 @@ func DbConnect() {
 	username := m["development"].(map[interface{}]interface{})["username"].(string)
 	password := m["development"].(map[interface{}]interface{})["password"].(string)
 	database := m["development"].(map[interface{}]interface{})["database"].(string)
+
+	Dbmap, _ = gorm.Open(adapter, username+":"+password+"@/"+database+"?charset="+encoding+"&parseTime=True")
+
+	Dbmap.DB()
+
+	Dbmap.DB().Ping()
+	Dbmap.DB().SetMaxIdleConns(10)
+	Dbmap.DB().SetMaxOpenConns(100)
+
+	Dbmap.SingularTable(true)
+}
+
+func DbTestConnect() {
+	m := make(map[interface{}]interface{})
+	config, _ := ioutil.ReadFile("database.yml")
+	err := yaml.Unmarshal([]byte(config), &m)
+	helper.Check(err)
+
+	adapter := m["test"].(map[interface{}]interface{})["adapter"].(string)
+	encoding := m["test"].(map[interface{}]interface{})["encoding"].(string)
+	username := m["test"].(map[interface{}]interface{})["username"].(string)
+	password := m["test"].(map[interface{}]interface{})["password"].(string)
+	database := m["test"].(map[interface{}]interface{})["database"].(string)
 
 	Dbmap, _ = gorm.Open(adapter, username+":"+password+"@/"+database+"?charset="+encoding+"&parseTime=True")
 

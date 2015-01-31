@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	dbmap.DbConnect()
+	dbmap.DbDevelopmentConnect()
 
 	goji.Get("/", top)
 	goji.Get("/:year/:month/:basename", article)
