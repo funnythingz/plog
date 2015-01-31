@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	dbmap.DbConnect()
+	dbmap.DbDevelopmentConnect()
 	reset()
 	create()
 	migrate()
