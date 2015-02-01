@@ -2,20 +2,22 @@ package main
 
 import (
 	"../models"
-	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
-func TestEntryModelSpec(t *testing.T) {
-	Convey("create Entry", t, func() {
-		entry := model.Entry{
-			Title:    "うひょひょひょー",
-			Content:  "ひょひょひょのひょーーーーーー",
-			Basename: "post-1",
-		}
+func TestEntryModel(t *testing.T) {
 
-		So(entry.Title, ShouldEqual, "うひょひょひょー")
-		So(entry.Content, ShouldEqual, "ひょひょひょのひょーーーーーー")
-		So(entry.Basename, ShouldEqual, "post-1")
-	})
+	title := "うひょひょひょー"
+	content := "ひょひょひょのひょーーーーーー"
+	basename := "post-1"
+
+	entry := model.Entry{
+		Title:    title,
+		Content:  content,
+		Basename: basename,
+	}
+
+	if entry.Title != title {
+		t.Errorf("got %v want %v", entry.Title, title)
+	}
 }
