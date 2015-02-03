@@ -3,7 +3,6 @@ package main
 import (
 	"./db"
 	"./models"
-	"log"
 	"testing"
 )
 
@@ -13,19 +12,22 @@ func TestEntryModel(t *testing.T) {
 	content := "ひょひょひょのひょーーーーーー"
 	basename := "post-1"
 
-	entry := model.Entry{
+	createEntry := model.Entry{
 		Title:    title,
 		Content:  content,
 		Basename: basename,
 	}
 
 	dbmap.DbTestConnect()
-	dbmap.Dbmap.NewRecord(entry)
-	dbmap.Dbmap.Create(&entry)
-	firstEntry := dbmap.Dbmap.First(&entry)
+	dbmap.Dbmap.NewRecord(createEntry)
+	dbmap.Dbmap.Create(&createEntry)
 
-	log.Println(firstEntry)
+	var entry model.Entry
+	dbmap.Dbmap.First(&entry)
+
 	if entry.Title != title {
 		t.Errorf("got %v want %v", entry.Title, title)
 	}
+
+	dbmap.Dbmap.Delete(&entry)
 }
