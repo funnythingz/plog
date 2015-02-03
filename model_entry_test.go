@@ -1,7 +1,9 @@
 package main
 
 import (
-	"../models"
+	"./db"
+	"./models"
+	"log"
 	"testing"
 )
 
@@ -17,6 +19,12 @@ func TestEntryModel(t *testing.T) {
 		Basename: basename,
 	}
 
+	dbmap.DbTestConnect()
+	dbmap.Dbmap.NewRecord(entry)
+	dbmap.Dbmap.Create(&entry)
+	firstEntry := dbmap.Dbmap.First(&entry)
+
+	log.Println(firstEntry)
 	if entry.Title != title {
 		t.Errorf("got %v want %v", entry.Title, title)
 	}
