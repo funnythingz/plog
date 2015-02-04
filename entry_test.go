@@ -54,6 +54,8 @@ func TestEntryGenerateHtmlFromMarkdown(t *testing.T) {
 	html := string(output)
 	log.Println(html)
 
+	// TODO: HTMLをパースする
+
 	//if entry.Title != title {
 	//	t.Errorf("got %v want %v", entry.Title, title)
 	//}
