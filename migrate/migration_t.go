@@ -8,8 +8,8 @@ import (
 
 func main() {
 	dbmap.DbTestConnect()
-	reset()
-	create()
+	//reset()
+	//create()
 	migrate()
 }
 
