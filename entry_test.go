@@ -4,9 +4,10 @@ import (
 	"./db"
 	_ "./helper"
 	"./models"
-	_ "github.com/PuerkitoBio/goquery"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/russross/blackfriday"
-	"log"
+	_ "log"
+	"strings"
 	"testing"
 )
 
@@ -52,11 +53,13 @@ func TestEntryGenerateHtmlFromMarkdown(t *testing.T) {
 
 	output := blackfriday.MarkdownCommon([]byte(entry.Content))
 	html := string(output)
-	log.Println(html)
+	r := strings.NewReader(html)
+	doc, _ := goquery.NewDocumentFromReader(r)
 
-	// TODO: HTMLをパースする
+	h2 := doc.Find("h2").Text()
+	heading := "食べたいものリストなんだお"
 
-	//if entry.Title != title {
-	//	t.Errorf("got %v want %v", entry.Title, title)
-	//}
+	if h2 != heading {
+		t.Errorf("got %v want %v", h2, heading)
+	}
 }
