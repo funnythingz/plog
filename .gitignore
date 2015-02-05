@@ -28,3 +28,4 @@ _testmain.go
 tmp
 gin-bin
 database.yml
+_vendor
