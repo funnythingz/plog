@@ -31,7 +31,7 @@ and more...
 ├── models
 │   ├── entry.go
 │   └── foo.go
-├── model_entry_test.go
+├── entry_test.go
 └── views
     ├── layouts
     │   └── layout.ace
@@ -43,10 +43,10 @@ and more...
 
 ```
 % cd /path/to/gogogo
-% fresh
+% gin
 ```
 
-access to `http://localhost:8000`
+access to `http://localhost:3000`
 
 ## migration
 
