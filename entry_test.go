@@ -1,7 +1,6 @@
 package main
 
 import (
-	"./db"
 	_ "./helper"
 	"./models"
 	"github.com/PuerkitoBio/goquery"
@@ -33,12 +32,12 @@ func TestCreateEntryModel(t *testing.T) {
 		Basename: basename,
 	}
 
-	dbmap.DbTestConnect()
-	dbmap.Dbmap.NewRecord(createEntry)
-	dbmap.Dbmap.Create(&createEntry)
+	DbTestConnect()
+	Dbmap.NewRecord(createEntry)
+	Dbmap.Create(&createEntry)
 
 	var entry model.Entry
-	dbmap.Dbmap.First(&entry)
+	Dbmap.First(&entry)
 
 	if entry.Title != title {
 		t.Errorf("got %v want %v", entry.Title, title)
@@ -46,10 +45,10 @@ func TestCreateEntryModel(t *testing.T) {
 }
 
 func TestEntryGenerateHtmlFromMarkdown(t *testing.T) {
-	dbmap.DbTestConnect()
+	DbTestConnect()
 
 	var entry model.Entry
-	dbmap.Dbmap.Last(&entry)
+	Dbmap.Last(&entry)
 
 	output := blackfriday.MarkdownCommon([]byte(entry.Content))
 	html := string(output)

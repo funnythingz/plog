@@ -7,20 +7,20 @@ import (
 )
 
 func main() {
-	dbmap.DbTestConnect()
+	DbTestConnect()
 	//reset()
 	//create()
 	migrate()
 }
 
 func reset() {
-	log.Println(dbmap.Dbmap.DropTableIfExists(&model.Entry{}))
+	log.Println(Dbmap.DropTableIfExists(&model.Entry{}))
 }
 
 func create() {
-	log.Println(dbmap.Dbmap.CreateTable(&model.Entry{}))
+	log.Println(Dbmap.CreateTable(&model.Entry{}))
 }
 
 func migrate() {
-	log.Println(dbmap.Dbmap.AutoMigrate(&model.Entry{}))
+	log.Println(Dbmap.AutoMigrate(&model.Entry{}))
 }

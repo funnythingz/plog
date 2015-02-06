@@ -1,7 +1,7 @@
-package dbmap
+package main
 
 import (
-	"../helper"
+	"./helper"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"gopkg.in/yaml.v2"
