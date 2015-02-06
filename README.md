@@ -22,8 +22,7 @@ and more...
 ├── app.go
 ├── controller.go
 ├── database.yml
-├── db
-│   └── dbmap.go
+├── dbmap.go
 ├── helper
 │   └── helper.go
 ├── migrate
