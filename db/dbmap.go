@@ -12,7 +12,8 @@ import (
 
 var Dbmap gorm.DB
 
-func DbOpen(adapter string,
+func DbOpen(
+	adapter string,
 	username string,
 	password string,
 	database string,
@@ -29,32 +30,30 @@ func DbOpen(adapter string,
 	Dbmap.SingularTable(true)
 }
 
-func DbDevelopmentConnect() {
+func DbConfig() map[interface{}]interface{} {
 	m := make(map[interface{}]interface{})
 	config, _ := ioutil.ReadFile("database.yml")
 	err := yaml.Unmarshal([]byte(config), &m)
 	helper.Check(err)
+	return m
+}
 
-	adapter := m["development"].(map[interface{}]interface{})["adapter"].(string)
-	encoding := m["development"].(map[interface{}]interface{})["encoding"].(string)
-	username := m["development"].(map[interface{}]interface{})["username"].(string)
-	password := m["development"].(map[interface{}]interface{})["password"].(string)
-	database := m["development"].(map[interface{}]interface{})["database"].(string)
+func DbDevelopmentConnect() {
+	adapter := DbConfig()["development"].(map[interface{}]interface{})["adapter"].(string)
+	encoding := DbConfig()["development"].(map[interface{}]interface{})["encoding"].(string)
+	username := DbConfig()["development"].(map[interface{}]interface{})["username"].(string)
+	password := DbConfig()["development"].(map[interface{}]interface{})["password"].(string)
+	database := DbConfig()["development"].(map[interface{}]interface{})["database"].(string)
 
 	DbOpen(adapter, username, password, database, encoding)
 }
 
 func DbTestConnect() {
-	m := make(map[interface{}]interface{})
-	config, _ := ioutil.ReadFile("database.yml")
-	err := yaml.Unmarshal([]byte(config), &m)
-	helper.Check(err)
-
-	adapter := m["test"].(map[interface{}]interface{})["adapter"].(string)
-	encoding := m["test"].(map[interface{}]interface{})["encoding"].(string)
-	username := m["test"].(map[interface{}]interface{})["username"].(string)
-	password := m["test"].(map[interface{}]interface{})["password"].(string)
-	database := m["test"].(map[interface{}]interface{})["database"].(string)
+	adapter := DbConfig()["test"].(map[interface{}]interface{})["adapter"].(string)
+	encoding := DbConfig()["test"].(map[interface{}]interface{})["encoding"].(string)
+	username := DbConfig()["test"].(map[interface{}]interface{})["username"].(string)
+	password := DbConfig()["test"].(map[interface{}]interface{})["password"].(string)
+	database := DbConfig()["test"].(map[interface{}]interface{})["database"].(string)
 
 	DbOpen(adapter, username, password, database, encoding)
 }
