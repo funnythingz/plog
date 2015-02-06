@@ -1,0 +1,5 @@
+= content main
+  article
+    h1
+      | {{.Title}}
+    | {{.HtmlContent}}
