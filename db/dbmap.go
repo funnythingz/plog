@@ -39,21 +39,21 @@ func DbConfig() map[interface{}]interface{} {
 }
 
 func DbDevelopmentConnect() {
-	adapter := DbConfig()["development"].(map[interface{}]interface{})["adapter"].(string)
-	encoding := DbConfig()["development"].(map[interface{}]interface{})["encoding"].(string)
-	username := DbConfig()["development"].(map[interface{}]interface{})["username"].(string)
-	password := DbConfig()["development"].(map[interface{}]interface{})["password"].(string)
-	database := DbConfig()["development"].(map[interface{}]interface{})["database"].(string)
-
-	DbOpen(adapter, username, password, database, encoding)
+	DbOpen(
+		DbConfig()["development"].(map[interface{}]interface{})["adapter"].(string),
+		DbConfig()["development"].(map[interface{}]interface{})["username"].(string),
+		DbConfig()["development"].(map[interface{}]interface{})["password"].(string),
+		DbConfig()["development"].(map[interface{}]interface{})["database"].(string),
+		DbConfig()["development"].(map[interface{}]interface{})["encoding"].(string),
+	)
 }
 
 func DbTestConnect() {
-	adapter := DbConfig()["test"].(map[interface{}]interface{})["adapter"].(string)
-	encoding := DbConfig()["test"].(map[interface{}]interface{})["encoding"].(string)
-	username := DbConfig()["test"].(map[interface{}]interface{})["username"].(string)
-	password := DbConfig()["test"].(map[interface{}]interface{})["password"].(string)
-	database := DbConfig()["test"].(map[interface{}]interface{})["database"].(string)
-
-	DbOpen(adapter, username, password, database, encoding)
+	DbOpen(
+		DbConfig()["test"].(map[interface{}]interface{})["adapter"].(string),
+		DbConfig()["test"].(map[interface{}]interface{})["username"].(string),
+		DbConfig()["test"].(map[interface{}]interface{})["password"].(string),
+		DbConfig()["test"].(map[interface{}]interface{})["database"].(string),
+		DbConfig()["test"].(map[interface{}]interface{})["encoding"].(string),
+	)
 }
