@@ -12,6 +12,23 @@ import (
 
 var Dbmap gorm.DB
 
+func DbOpen(adapter string,
+	username string,
+	password string,
+	database string,
+	encoding string) {
+
+	Dbmap, _ = gorm.Open(adapter, username+":"+password+"@/"+database+"?charset="+encoding+"&parseTime=True")
+
+	Dbmap.DB()
+
+	Dbmap.DB().Ping()
+	Dbmap.DB().SetMaxIdleConns(10)
+	Dbmap.DB().SetMaxOpenConns(100)
+
+	Dbmap.SingularTable(true)
+}
+
 func DbDevelopmentConnect() {
 	m := make(map[interface{}]interface{})
 	config, _ := ioutil.ReadFile("database.yml")
@@ -24,15 +41,7 @@ func DbDevelopmentConnect() {
 	password := m["development"].(map[interface{}]interface{})["password"].(string)
 	database := m["development"].(map[interface{}]interface{})["database"].(string)
 
-	Dbmap, _ = gorm.Open(adapter, username+":"+password+"@/"+database+"?charset="+encoding+"&parseTime=True")
-
-	Dbmap.DB()
-
-	Dbmap.DB().Ping()
-	Dbmap.DB().SetMaxIdleConns(10)
-	Dbmap.DB().SetMaxOpenConns(100)
-
-	Dbmap.SingularTable(true)
+	DbOpen(adapter, username, password, database, encoding)
 }
 
 func DbTestConnect() {
@@ -47,13 +56,5 @@ func DbTestConnect() {
 	password := m["test"].(map[interface{}]interface{})["password"].(string)
 	database := m["test"].(map[interface{}]interface{})["database"].(string)
 
-	Dbmap, _ = gorm.Open(adapter, username+":"+password+"@/"+database+"?charset="+encoding+"&parseTime=True")
-
-	Dbmap.DB()
-
-	Dbmap.DB().Ping()
-	Dbmap.DB().SetMaxIdleConns(10)
-	Dbmap.DB().SetMaxOpenConns(100)
-
-	Dbmap.SingularTable(true)
+	DbOpen(adapter, username, password, database, encoding)
 }
