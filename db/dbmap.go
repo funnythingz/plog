@@ -39,21 +39,23 @@ func DbConfig() map[interface{}]interface{} {
 }
 
 func DbDevelopmentConnect() {
+	config := DbConfig()["development"].(map[interface{}]interface{})
 	DbOpen(
-		DbConfig()["development"].(map[interface{}]interface{})["adapter"].(string),
-		DbConfig()["development"].(map[interface{}]interface{})["username"].(string),
-		DbConfig()["development"].(map[interface{}]interface{})["password"].(string),
-		DbConfig()["development"].(map[interface{}]interface{})["database"].(string),
-		DbConfig()["development"].(map[interface{}]interface{})["encoding"].(string),
+		config["adapter"].(string),
+		config["username"].(string),
+		config["password"].(string),
+		config["database"].(string),
+		config["encoding"].(string),
 	)
 }
 
 func DbTestConnect() {
+	config := DbConfig()["test"].(map[interface{}]interface{})
 	DbOpen(
-		DbConfig()["test"].(map[interface{}]interface{})["adapter"].(string),
-		DbConfig()["test"].(map[interface{}]interface{})["username"].(string),
-		DbConfig()["test"].(map[interface{}]interface{})["password"].(string),
-		DbConfig()["test"].(map[interface{}]interface{})["database"].(string),
-		DbConfig()["test"].(map[interface{}]interface{})["encoding"].(string),
+		config["adapter"].(string),
+		config["username"].(string),
+		config["password"].(string),
+		config["database"].(string),
+		config["encoding"].(string),
 	)
 }

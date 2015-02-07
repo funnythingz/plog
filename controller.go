@@ -63,11 +63,11 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	themeId, _ := strconv.Atoi(r.FormValue("entry[theme_id]"))
 
 	// TODO: validation
-	if title != "" || len(title) <= 140 {
+	if title != "" && len(title) <= 140 {
 		http.Redirect(w, r, "/new", http.StatusNotModified)
 		return
 	}
-	if len(content) > 5 || len(content) <= 1000 {
+	if len(content) > 5 && len(content) <= 1000 {
 		http.Redirect(w, r, "/new", http.StatusNotModified)
 		return
 	}
