@@ -13,3 +13,7 @@
         option value="3"
           | ahya
       input type="submit" value="are you ready?"
+
+  .to_top
+    a href="/"
+      | to Top
