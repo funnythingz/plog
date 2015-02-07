@@ -5,6 +5,7 @@ import (
 	"./helper"
 	"./models"
 	"fmt"
+	_ "github.com/asaskevich/govalidator"
 	_ "github.com/goji/param"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -17,9 +18,9 @@ import (
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
 
-	var Entries []model.Entry
+	Entries, entriesNotFound := model.FindEntriesIndex()
 
-	if db.Dbmap.Order("id desc").Find(&Entries).Select("Title").RecordNotFound() {
+	if entriesNotFound {
 		NotFound(w, r)
 		return
 	}
@@ -32,9 +33,9 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 
-	var entry model.Entry
+	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
 
-	if db.Dbmap.Find(&entry, c.URLParams["id"]).RecordNotFound() {
+	if entryNotFound {
 		NotFound(w, r)
 		return
 	}
@@ -61,6 +62,16 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("entry[content]")
 	themeId, _ := strconv.Atoi(r.FormValue("entry[theme_id]"))
 
+	// TODO: validation
+	if title != "" || len(title) <= 140 {
+		http.Redirect(w, r, "/new", http.StatusNotModified)
+		return
+	}
+	if len(content) > 5 || len(content) <= 1000 {
+		http.Redirect(w, r, "/new", http.StatusNotModified)
+		return
+	}
+
 	entry := model.Entry{
 		Title:   title,
 		Content: content,
@@ -69,12 +80,6 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	db.Dbmap.NewRecord(entry)
 	db.Dbmap.Create(&entry)
-
-	// TODO: validation
-	//if err != nil || len(greet.Message) > 140 {
-	//    http.Error(w, err.Error(), http.StatusBadRequest)
-	//    return
-	//}
 
 	url := fmt.Sprintf("/%d", entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
