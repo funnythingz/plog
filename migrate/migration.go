@@ -1,25 +1,26 @@
 package main
 
 import (
+	"../db"
 	"../models"
 	"log"
 )
 
 func main() {
-	DbDevelopmentConnect()
+	db.DbDevelopmentConnect()
 	reset()
 	create()
 	migrate()
 }
 
 func reset() {
-	log.Println(Dbmap.DropTableIfExists(&model.Entry{}))
+	log.Println(db.Dbmap.DropTableIfExists(&model.Entry{}))
 }
 
 func create() {
-	log.Println(Dbmap.CreateTable(&model.Entry{}))
+	log.Println(db.Dbmap.CreateTable(&model.Entry{}))
 }
 
 func migrate() {
-	log.Println(Dbmap.AutoMigrate(&model.Entry{}))
+	log.Println(db.Dbmap.AutoMigrate(&model.Entry{}))
 }

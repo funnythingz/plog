@@ -1,12 +1,13 @@
 package main
 
 import (
+	"./db"
 	"github.com/zenazn/goji"
 	"regexp"
 )
 
 func main() {
-	DbDevelopmentConnect()
+	db.DbDevelopmentConnect()
 
 	goji.Get("/", top)
 	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), article)
