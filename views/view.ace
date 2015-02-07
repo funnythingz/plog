@@ -2,7 +2,7 @@
   article
     h1
       | {{.Title}}
-    | {{.HtmlContent}}
+    | {{HTML .HtmlContent}}
 
   .to_top
     a href="/"

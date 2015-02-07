@@ -6,6 +6,8 @@ import (
 	"./models"
 	"fmt"
 	_ "github.com/goji/param"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
 	_ "log"
@@ -21,8 +23,12 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
+	var entry model.Entry
+	db.Dbmap.Find(&entry, c.URLParams["id"])
+	p := bluemonday.UGCPolicy()
+	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", nil)
-	err := tpl.Execute(w, map[string]string{"Title": "Yeah, " + c.URLParams["id"] + "!"})
+	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent})
 
 	helper.InternalServerErrorCheck(err, w)
 }
@@ -56,7 +62,7 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	//}
 
 	url := fmt.Sprintf("/%d", entry.Id)
-	http.Redirect(w, r, url, http.StatusCreated)
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
