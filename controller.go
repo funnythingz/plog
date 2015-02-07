@@ -23,10 +23,17 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
+
 	var entry model.Entry
-	db.Dbmap.Find(&entry, c.URLParams["id"])
+
+	if db.Dbmap.Find(&entry, c.URLParams["id"]).RecordNotFound() {
+		NotFound(w, r)
+		return
+	}
+
 	p := bluemonday.UGCPolicy()
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
+
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", nil)
 	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent})
 
