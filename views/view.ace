@@ -3,3 +3,7 @@
     h1
       | {{.Title}}
     | {{.HtmlContent}}
+
+  .to_top
+    a href="/"
+      | to Top

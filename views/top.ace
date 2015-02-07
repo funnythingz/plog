@@ -1,3 +1,6 @@
 = content main
   h1
-    | {{.Title}}
+    | log.link
+  section
+    a href="/new"
+      | create Entry

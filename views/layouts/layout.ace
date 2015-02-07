@@ -6,3 +6,7 @@ html
   body
     .container
       = yield main
+
+    footer
+      .copyright
+        | &copy; funnythingz

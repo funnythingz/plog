@@ -4,6 +4,7 @@ import (
 	"./db"
 	"./helper"
 	"./models"
+	"fmt"
 	_ "github.com/goji/param"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
@@ -48,7 +49,8 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	//    return
 	//}
 
-	http.Redirect(w, r, string(entry.Id), http.StatusCreated)
+	url := fmt.Sprintf("/%d", entry.Id)
+	http.Redirect(w, r, url, http.StatusCreated)
 }
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
