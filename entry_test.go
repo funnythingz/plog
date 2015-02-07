@@ -25,12 +25,10 @@ func TestCreateEntryModel(t *testing.T) {
 まぁこんなもんかな。
 `
 
-	theme := 1
-
 	createEntry := model.Entry{
 		Title:   title,
 		Content: content,
-		Theme:   theme,
+		Theme:   1,
 	}
 
 	db.DbTestConnect()
