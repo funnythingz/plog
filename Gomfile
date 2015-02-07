@@ -1,4 +1,5 @@
 gom 'github.com/go-sql-driver/mysql'
+gom 'github.com/goji/param'
 gom 'github.com/jinzhu/gorm'
 gom 'github.com/lib/pq/hstore'
 gom 'github.com/yosssi/ace'
