@@ -38,7 +38,7 @@ and more...
     └── show.ace
 ```
 
-## run
+## LiveReload server
 
 ```
 % cd /path/to/gogogo
