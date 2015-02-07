@@ -10,6 +10,7 @@ import (
 	"github.com/zenazn/goji/web"
 	_ "log"
 	"net/http"
+	"strconv"
 )
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -34,10 +35,15 @@ func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+
+	title := r.FormValue("entry[title]")
+	content := r.FormValue("entry[content]")
+	themeId, _ := strconv.Atoi(r.FormValue("entry[theme_id]"))
+
 	entry := model.Entry{
-		Title:   r.FormValue("entry[title]"),
-		Content: r.FormValue("entry[content]"),
-		Theme:   1,
+		Title:   title,
+		Content: content,
+		ThemeId: themeId,
 	}
 
 	db.Dbmap.NewRecord(entry)

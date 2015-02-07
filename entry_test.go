@@ -28,7 +28,7 @@ func TestCreateEntryModel(t *testing.T) {
 	createEntry := model.Entry{
 		Title:   title,
 		Content: content,
-		Theme:   1,
+		ThemeId: 1,
 	}
 
 	db.DbTestConnect()

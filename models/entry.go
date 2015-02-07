@@ -5,10 +5,10 @@ import (
 )
 
 type Entry struct {
-	Id        int64
+	Id        int
 	Title     string
 	Content   string
-	Theme     int64
+	ThemeId   int
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

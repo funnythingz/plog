@@ -5,4 +5,11 @@
     form method="post" action="/entry"
       input type="text" name="entry[title]"
       textarea name="entry[content]"
+      select name="entry[theme_id]"
+        option value="1"
+          | funny
+        option value="2"
+          | unko
+        option value="3"
+          | ahya
       input type="submit" value="are you ready?"
