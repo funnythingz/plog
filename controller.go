@@ -16,8 +16,16 @@ import (
 )
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
+
+	var Entries []model.Entry
+
+	if db.Dbmap.Order("id desc").Find(&Entries).Select("Title").RecordNotFound() {
+		NotFound(w, r)
+		return
+	}
+
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", nil)
-	err := tpl.Execute(w, map[string]string{"Title": "Welcome"})
+	err := tpl.Execute(w, Entries)
 
 	helper.InternalServerErrorCheck(err, w)
 }
