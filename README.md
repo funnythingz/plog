@@ -11,7 +11,7 @@ This is web application in the Golang project template.
 - live reload ... https://github.com/codegangsta/gin
 - template ... https://github.com/yosssi/ace
 - AWS ... https://github.com/mitchellh/goamz
-- Image Resize ... https://github.com/nfnt/resize
+- validater ... https://github.com/asaskevich/govalidator
 
 and more...
 
