@@ -5,7 +5,7 @@ import (
 	"./helper"
 	"./models"
 	"fmt"
-	_ "github.com/asaskevich/govalidator"
+	"github.com/asaskevich/govalidator"
 	_ "github.com/goji/param"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -76,6 +76,11 @@ func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 		Title:   title,
 		Content: content,
 		ThemeId: themeId,
+	}
+
+	_, err := govalidator.ValidateStruct(entry)
+	if err != nil {
+		println("error: " + err.Error())
 	}
 
 	db.Dbmap.NewRecord(entry)
