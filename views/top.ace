@@ -4,9 +4,11 @@
   section
     a href="/new"
       | create Entry
-  section
-    {{range .}}
-      article
-        a href="/{{.Id}}"
-          {{.Title}}
-    {{end}}
+  {{if .}}
+    section
+      {{range .}}
+        article
+          a href="/{{.Id}}"
+            {{.Title}}
+      {{end}}
+  {{end}}

@@ -2,6 +2,13 @@
   section
     h1
       | create Entry
+    {{if .Error}}
+      ul.error
+        {{range .Error}}
+          li
+            | {{.}}
+        {{end}}
+    {{end}}
     form method="post" action="/entry"
       input type="text" name="entry[title]"
       textarea name="entry[content]"

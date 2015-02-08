@@ -11,7 +11,7 @@ import (
 	"github.com/russross/blackfriday"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
-	_ "log"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -56,37 +56,52 @@ func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	helper.InternalServerErrorCheck(err, w)
 }
 
-func postEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+type FormResultData struct {
+	Entry model.Entry
+	Error []string
+}
+
+func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
 	content := r.FormValue("entry[content]")
 	themeId, _ := strconv.Atoi(r.FormValue("entry[theme_id]"))
 
-	// TODO: validation
-	if len(title) <= 0 || len(title) > 140 {
-		http.Redirect(w, r, "/new", http.StatusNotModified)
-		return
-	}
-	if len(content) < 5 || len(content) > 1000 {
-		http.Redirect(w, r, "/new", http.StatusNotModified)
-		return
-	}
-
-	entry := model.Entry{
+	Entry := model.Entry{
 		Title:   title,
 		Content: content,
 		ThemeId: themeId,
 	}
 
-	_, err := govalidator.ValidateStruct(entry)
-	if err != nil {
-		println("error: " + err.Error())
+	if _, err := govalidator.ValidateStruct(Entry); err != nil {
+		log.Println(err.Error())
 	}
 
-	db.Dbmap.NewRecord(entry)
-	db.Dbmap.Create(&entry)
+	Error := []string{}
 
-	url := fmt.Sprintf("/%d", entry.Id)
+	// Validation
+	if len(title) <= 0 {
+		Error = append(Error, "input Title must be blank.")
+	}
+	if len(title) > 140 {
+		Error = append(Error, "input Title maximum is 140 character.")
+	}
+	if len(content) <= 0 {
+		Error = append(Error, "input Content must be blank.")
+	}
+	if len(content) < 5 || len(content) > 1000 {
+		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
+	}
+	if len(Error) > 0 {
+		tpl, _ := ace.Load("views/layouts/layout", "views/new", nil)
+		tpl.Execute(w, FormResultData{Entry, Error})
+		return
+	}
+
+	db.Dbmap.NewRecord(Entry)
+	db.Dbmap.Create(&Entry)
+
+	url := fmt.Sprintf("/%d", Entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
 
