@@ -14,9 +14,12 @@ type Entry struct {
 	UpdatedAt time.Time
 }
 
-func FindEntriesIndex() ([]Entry, bool) {
+func FindEntriesIndex(permit int, page int) ([]Entry, bool, bool) {
 	var entries []Entry
-	return entries, db.Dbmap.Order("id desc").Find(&entries).Select("Title").RecordNotFound()
+	var nextEntries []Entry
+	current := db.Dbmap.Order("id desc").Offset((page - 1) * permit).Limit(permit).Find(&entries).Select("Title")
+	endpoint := current.Offset(page * permit).Find(&nextEntries).RecordNotFound()
+	return entries, current.RecordNotFound(), endpoint
 }
 
 func FindEntry(id string) (Entry, bool) {

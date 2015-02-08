@@ -1,26 +1,10 @@
-= content main
-  h1
-    | log.link
-  section
-    a href="/new"
-      | create Entry
-  {{if not .NotFound}}
-    section
-      {{range .Entries}}
-        article
-          a href="/{{.Id}}"
-            {{.Title}}
-      {{end}}
-    .paginate
       {{if .Paginate.PrevPage gt 0}}
           .to-prev
             a href="/?page={{.Paginate.PrevPage}}"
               | prev
-
       {{end}}
       {{if not .Paginate.IsEndpoint}}
           .to-next
             a href="/?page={{.Paginate.NextPage}}"
               | next
       {{end}}
-  {{end}}

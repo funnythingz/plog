@@ -7,26 +7,71 @@ import (
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	_ "github.com/goji/param"
+	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
-	"log"
 	"net/http"
+	"net/url"
 	"strconv"
 )
 
-func top(c web.C, w http.ResponseWriter, r *http.Request) {
+type Paginate struct {
+	IsEndpoint  bool
+	CurrentPage int
+	PrevPage    int
+	NextPage    int
+}
 
-	Entries, entriesNotFound := model.FindEntriesIndex()
+type TopViewModel struct {
+	Entries  []model.Entry
+	NotFound bool
+	Paginate Paginate
+}
+
+func top(c web.C, w http.ResponseWriter, r *http.Request) {
+	permit := 5
+
+	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)
+
+	var page int
+	if len(urlQuery["page"]) == 0 {
+		page = 1
+	} else {
+		page, _ = strconv.Atoi(urlQuery["page"][0])
+	}
+
+	entries, entriesNotFound, endpoint := model.FindEntriesIndex(permit, page)
 
 	if entriesNotFound {
 		NotFound(w, r)
 		return
 	}
 
+	paginate := Paginate{
+		IsEndpoint:  endpoint,
+		CurrentPage: page,
+	}
+
+	if page > 1 {
+		paginate.PrevPage = page - 1
+	}
+
+	if endpoint == false {
+		paginate.NextPage = page + 1
+	}
+
+	TopViewModel := TopViewModel{
+		Entries:  entries,
+		NotFound: entriesNotFound,
+		Paginate: paginate,
+	}
+
+	//pp.Println(TopViewModel)
+
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", nil)
-	err := tpl.Execute(w, Entries)
+	err := tpl.Execute(w, TopViewModel)
 
 	helper.InternalServerErrorCheck(err, w)
 }
@@ -74,7 +119,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, err := govalidator.ValidateStruct(Entry); err != nil {
-		log.Println(err.Error())
+		pp.Println(err.Error())
 	}
 
 	Error := []string{}
