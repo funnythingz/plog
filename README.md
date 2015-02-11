@@ -4,6 +4,7 @@ This is web application in the Golang project template.
 
 ## use package
 
+- Go Manager - bundle for go ... https://github.com/mattn/gom
 - Web framework ... https://github.com/zenazn/goji
 - ORMapper ... https://github.com/jinzhu/gorm
 - Markdown to HTML ... https://github.com/russross/blackfriday
@@ -38,25 +39,52 @@ and more...
     └── show.ace
 ```
 
-## LiveReload server
+## Getting started
 
 ```
-% cd /path/to/gogogo
-% gin
+% git clone git@github.com:funnythingz/gogogo.git
+% cd gogogo/
+```
+
+### database setting
+
+Must database setting in MySQL before try `GoGoGo`
+
+```
+% cp database.yml.sample database.yml
+```
+
+create database and user/password.
+
+### run apprication
+
+```
+% go get github.com/mattn/gom
+% gom install
+% gom migration/migrate.go
+% gom exec gin
+```
+
+## Command
+
+### LiveReload server
+
+```
+% gom exec gin
 ```
 
 access to `http://localhost:3000`
 
-## migration
+### migration
 
 ```
-% go run migrate/migration.go
+% gom run migrate/migration.go
 ```
 
-## test
+### test
 
 ```
-% go test -v
+% gom test -v
 ```
 
 &copy; funnythingz
