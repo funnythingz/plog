@@ -21,6 +21,10 @@ $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 
+$brand-white:           #fff    !default;
+$brand-black:           #313233 !default;
+$brand-pink:            #EC799A !default;
+$brand-blue:            #39f    !default;
 
 //== Scaffolding
 //
@@ -174,6 +178,22 @@ $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
+
+$btn-white-color:                #345 !default;
+$btn-white-bg:                   $brand-white !default;
+$btn-white-border:               darken($btn-white-bg, 5%) !default;
+
+$btn-black-color:                 #fff !default;
+$btn-black-bg:                    $brand-black !default;
+$btn-black-border:                darken($btn-black-bg, 5%) !default;
+
+$btn-pink-color:                 #fff !default;
+$btn-pink-bg:                    $brand-pink !default;
+$btn-pink-border:                darken($btn-pink-bg, 5%) !default;
+
+$btn-blue-color:                 #fff !default;
+$btn-blue-bg:                    $brand-blue !default;
+$btn-blue-border:                darken($btn-blue-bg, 5%) !default;
 
 
 //== Forms

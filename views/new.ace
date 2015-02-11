@@ -1,31 +1,48 @@
 = content main
-  header.navigation
-    h1.logo
-      | plog
-    p.lead.description
-      | is a simple diary for people all over the world.
-  section
+  section.text-center
     h1.heading
       | Create diary
-    {{if .Error}}
-      ul.error
-        {{range .Error}}
-          li
-            | {{.}}
-        {{end}}
-    {{end}}
-    form method="post" action="/entry"
-      input type="text" name="entry[title]"
-      textarea name="entry[content]"
-      select name="entry[theme_id]"
-        option value="1"
-          | funny
-        option value="2"
-          | unko
-        option value="3"
-          | ahya
-      input type="submit" value="are you ready?"
+    section.create-form
+      {{if .Error}}
+        ul.error
+          {{range .Error}}
+            li
+              | {{.}}
+          {{end}}
+      {{end}}
+      .row
+        .col-sm-8.col-sm-offset-2
+          form method="post" action="/entry"
+            .form-group.form-group-lg
+              label for="entry-title"
+                | Title
+              input.form-control type="text" name="entry[title]" id="entry-title"
+            .form-group.form-group-lg
+              label for="entry-content"
+                | Content
+              textarea.form-control name="entry[content]" id="entry-content" rows="10"
+            .form-group.form-group-lg
+              .row
+                .col-sm-12
+                  label for="entry-theme"
+                    | Theme
+              .btn-group data-toggle="buttons" 
+                label.btn.btn-default.active
+                  input#option1 autocomplete="off" checked="checked" name="entry[theme_id]" type="radio" value="1"
+                  | white
+                label.btn.btn-black
+                  input#option2 autocomplete="off" name="entry[theme_id]" type="radio" value="2"
+                  | black
+                label.btn.btn-blue
+                  input#option4 autocomplete="off" name="entry[theme_id]" type="radio" value="3"
+                  | blue
+                label.btn.btn-pink
+                  input#option3 autocomplete="off" name="entry[theme_id]" type="radio" value="4"
+                  | pink
+            .form-group.form-group-lg
+              input.btn.btn-block.btn-lg.btn-primary.create type="submit" value="Create!"
 
-  .to_top
-    a href="/"
-      | to Top
+  .text-center
+    a.btn.btn-default.btn-sm href="/"
+      i.fa.fa-home.icon-left
+      | Top

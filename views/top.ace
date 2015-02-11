@@ -1,5 +1,5 @@
 = content main
-  header.header
+  header.hero
     h1.logo
       | plog
     p.lead.description
@@ -8,7 +8,7 @@
     section.action
       .row
         .col-sm-6.col-sm-offset-3
-          a.btn.btn-lg.btn-block.btn-primary.create href="/new"
+          a.btn.btn-lg.btn-block.btn-success.create href="/new"
             | create
     section
       .row

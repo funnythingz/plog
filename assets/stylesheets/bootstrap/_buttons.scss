@@ -81,6 +81,18 @@
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
 
+.btn-pink {
+  @include button-variant($btn-pink-color, $btn-pink-bg, $btn-pink-border);
+}
+
+.btn-blue {
+  @include button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-border);
+}
+
+.btn-black {
+  @include button-variant($btn-black-color, $btn-black-bg, $btn-black-border);
+}
+
 
 // Link buttons
 // -------------------------

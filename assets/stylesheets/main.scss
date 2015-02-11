@@ -9,7 +9,7 @@ body {
   padding-bottom: 70px;
 }
 
-.header {
+.hero {
   text-align: center;
   margin-bottom: 40px;
 }
@@ -22,7 +22,7 @@ body {
 }
 
 .heading {
-  font-size: 64px;
+  font-size: 48px;
   font-family: 'Quicksand', sans-serif;
   margin-bottom: 10px;
 }
@@ -31,7 +31,7 @@ body {
   color: #919293;
 }
 
-.navigation {
+.header {
   .logo {
     font-size: 36px;
   }
@@ -46,7 +46,7 @@ body {
 }
 
 .entry {
-  margin: 40px;
+  margin: 40px 0;
 
   > h1 {
     margin: 20px 0;
@@ -71,6 +71,10 @@ body {
 .entry-item {
   margin: 5px;
   float: left;
+}
+
+.create-form {
+  margin: 40px 0;
 }
 
 .icon-left {
