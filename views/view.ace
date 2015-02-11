@@ -1,9 +1,10 @@
 = content main
-  article
+  article.entry
     h1
       | {{.Title}}
-    | {{HTML .HtmlContent}}
-
-  .to_top
-    a href="/"
-      | to Top
+    section.content
+      | {{HTML .HtmlContent}}
+  .text-center
+    a.btn.btn-default.btn-sm href="/"
+      i.fa.fa-home.icon-left
+      | Top

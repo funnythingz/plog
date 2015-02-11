@@ -5,25 +5,32 @@
     p.lead.description
       | is a simple diary for people all over the world.
   section
-    .row
-      .col-sm-6.col-sm-offset-3
-        a.btn.btn-lg.btn-block.btn-primary.create href="/new"
-          | create
+    section.action
+      .row
+        .col-sm-6.col-sm-offset-3
+          a.btn.btn-lg.btn-block.btn-primary.create href="/new"
+            | create
     section
-      {{range .Entries}}
-        article
-          a href="/{{.Id}}"
-            {{.Title}}
-      {{end}}
-      .paginate
-        ul
+      .row
+        {{range .Entries}}
+          article.panel.panel-default.entry-item
+            a href="/{{.Id}}"
+              .panel-heading
+                {{.Title}}
+        {{end}}
+    nav
+      ul.pager
         {{if not .Paginate.IsFirstpoint}}
-          li
+          li.previous
             a href="?page={{.Paginate.PrevPage}}"
-              | to prev
+              i.fa.fa-arrow-left
+              span.prev-text
+                | prev
         {{end}}
         {{if not .Paginate.IsEndpoint}}
-          li
+          li.next
             a href="?page={{.Paginate.NextPage}}"
-              | to next
+              span.next-text
+                | next
+              i.fa.fa-arrow-right
         {{end}}

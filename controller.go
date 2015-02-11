@@ -6,7 +6,7 @@ import (
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
-	_ "github.com/k0kubun/pp"
+	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"github.com/shaoshing/train"
@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"unicode/utf8"
 )
 
 type Paginate struct {
@@ -38,7 +39,7 @@ var AssetsMap = template.FuncMap{
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
-	permit := 5
+	permit := 20
 
 	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)
 
@@ -73,6 +74,8 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		Entries:  entries,
 		Paginate: paginate,
 	}
+
+	pp.Println(paginate)
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, TopViewModel)
@@ -129,16 +132,16 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	Error := []string{}
 
 	// Validation
-	if len(title) <= 0 {
+	if utf8.RuneCountInString(title) <= 0 {
 		Error = append(Error, "input Title must be blank.")
 	}
-	if len(title) > 140 {
-		Error = append(Error, "input Title maximum is 140 character.")
+	if utf8.RuneCountInString(title) > 50 {
+		Error = append(Error, "input Title maximum is 50 character.")
 	}
-	if len(content) <= 0 {
+	if utf8.RuneCountInString(content) <= 0 {
 		Error = append(Error, "input Content must be blank.")
 	}
-	if len(content) < 5 || len(content) > 1000 {
+	if utf8.RuneCountInString(content) < 5 || utf8.RuneCountInString(content) > 1000 {
 		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 	if len(Error) > 0 {

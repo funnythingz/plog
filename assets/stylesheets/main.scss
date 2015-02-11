@@ -6,10 +6,12 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  padding-bottom: 70px;
 }
 
 .header {
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .logo {
@@ -35,8 +37,44 @@ body {
   }
 }
 
+.action {
+  margin-bottom: 40px;
+}
+
 .create {
   padding: 1em;
+}
+
+.entry {
+  margin: 40px;
+
+  > h1 {
+    margin: 20px 0;
+    font-size: 42px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .content {
+    p {
+      line-height: 1.5;
+    }
+
+    ul {
+      li {
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.entry-item {
+  margin: 5px;
+  float: left;
+}
+
+.icon-left {
+  margin-right: 5px;
 }
 
 .navbar-nav > li {
@@ -46,6 +84,14 @@ body {
     margin-top: 7px;
     color: #f7f8f9;
   }
+}
+
+.prev-text {
+  margin-left: 5px;
+}
+
+.next-text {
+  margin-right: 5px;
 }
 
 .footer {
