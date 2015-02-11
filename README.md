@@ -6,6 +6,7 @@ This is web application in the Golang project template.
 
 - Go Manager - bundle for go ... https://github.com/mattn/gom
 - Web framework ... https://github.com/zenazn/goji
+- Asset Management ... https://github.com/shaoshing/train
 - ORMapper ... https://github.com/jinzhu/gorm
 - Markdown to HTML ... https://github.com/russross/blackfriday
 - Sanitizer ... https://github.com/microcosm-cc/bluemonday
@@ -24,6 +25,11 @@ and more...
 ├── controller.go
 ├── database.yml
 ├── dbmap.go
+├── assets
+│   ├── javascripts
+│   │   └── main.js
+│   └── stylesheets
+│       └── main.scss
 ├── helper
 │   └── helper.go
 ├── migrate
