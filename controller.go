@@ -33,9 +33,8 @@ type TopViewModel struct {
 }
 
 var AssetsMap = template.FuncMap{
-	"javascript_tag":            train.JavascriptTag,
-	"stylesheet_tag":            train.StylesheetTag,
-	"stylesheet_tag_with_param": train.StylesheetTagWithParam,
+	"javascript_tag": train.JavascriptTag,
+	"stylesheet_tag": train.StylesheetTag,
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -93,14 +92,14 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	p := bluemonday.UGCPolicy()
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
-	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true})
+	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent})
 
 	helper.InternalServerErrorCheck(err, w)
 }
 
 func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true})
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, nil)
 
 	helper.InternalServerErrorCheck(err, w)
@@ -143,7 +142,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 	if len(Error) > 0 {
-		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true})
+		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 		tpl.Execute(w, FormResultData{Entry, Error})
 		return
 	}
@@ -157,6 +156,6 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	tpl, _ := ace.Load("views/layouts/layout", "views/404", &ace.Options{DynamicReload: true})
+	tpl, _ := ace.Load("views/layouts/layout", "views/404", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	tpl.Execute(w, nil)
 }
