@@ -12,7 +12,23 @@ html
     .container
       = yield main
 
-    footer
+    footer.footer
       .container
-        .copyright
-          | &copy; funnythingz
+        p.copyright
+          a href="http://funnythingz.com" target="_blank"
+            | &copy; funnythingz
+    nav.navbar.navbar-default.navbar-fixed-bottom
+      .container
+        .navbar-header
+          button.navbar-toggle.collapsed data-target="#navbar" data-toggle="collapse" type="button" 
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand.footer-logo href="/"
+            | plog
+        #navbar.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.btn.btn-info.create-small href="/new"
+                | create

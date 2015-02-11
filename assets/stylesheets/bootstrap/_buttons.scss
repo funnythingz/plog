@@ -19,6 +19,7 @@
   white-space: nowrap;
   @include button-size($padding-base-vertical, $padding-base-horizontal, $font-size-base, $line-height-base, $border-radius-base);
   @include user-select(none);
+  transition: all .3s ease-in-out;
 
   &,
   &:active,

@@ -1,6 +1,7 @@
 @charset 'utf-8';
 
 @import 'bootstrap';
+@import url(http://fonts.googleapis.com/css?family=Quicksand);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
 body {
@@ -13,10 +14,46 @@ body {
 
 .logo {
   font-size: 100px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.heading {
+  font-size: 64px;
+  font-family: 'Quicksand', sans-serif;
   margin-bottom: 10px;
 }
 
 .description {
   color: #919293;
+}
+
+.navigation {
+  .logo {
+    font-size: 36px;
+  }
+}
+
+.create {
+  padding: 1em;
+}
+
+.navbar-nav > li {
+  > a.create-small {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-top: 7px;
+    color: #f7f8f9;
+  }
+}
+
+.footer {
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.copyright {
+  text-align: center;
+  margin-bottom: 0;
 }
