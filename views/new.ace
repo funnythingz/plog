@@ -45,4 +45,4 @@
   .text-center
     a.btn.btn-default.btn-sm href="/"
       i.fa.fa-home.icon-left
-      | Top
+      | Home

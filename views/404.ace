@@ -1,3 +1,7 @@
 = content main
-  h1
+  h1.text-center.spacing-lg
     | 404 Not Found.
+  .text-center
+    a.btn.btn-default.btn-sm href="/"
+      i.fa.fa-home.icon-left
+      | Home
