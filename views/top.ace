@@ -4,11 +4,21 @@
   section
     a href="/new"
       | create Entry
-  {{if not .NotFound}}
     section
       {{range .Entries}}
         article
           a href="/{{.Id}}"
             {{.Title}}
       {{end}}
-  {{end}}
+      .paginate
+        ul
+        {{if not .Paginate.IsFirstpoint}}
+          li
+            a href="?page={{.Paginate.PrevPage}}"
+              | to prev
+        {{end}}
+        {{if not .Paginate.IsEndpoint}}
+          li
+            a href="?page={{.Paginate.NextPage}}"
+              | to next
+        {{end}}

@@ -6,7 +6,6 @@ import (
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
-	_ "github.com/goji/param"
 	_ "github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -19,15 +18,15 @@ import (
 )
 
 type Paginate struct {
-	IsEndpoint  bool
-	CurrentPage int
-	PrevPage    int
-	NextPage    int
+	IsEndpoint   bool
+	IsFirstpoint bool
+	CurrentPage  int
+	PrevPage     int
+	NextPage     int
 }
 
 type TopViewModel struct {
 	Entries  []model.Entry
-	NotFound bool
 	Paginate Paginate
 }
 
@@ -45,19 +44,30 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	entries, isEndpoint := model.FindEntriesIndex(permit, page)
 
-	log.Println(isEndpoint)
-	if len(entries) == 0 {
+	if len(entries) == 0 && page > 1 {
 		NotFound(w, r)
 		return
 	}
 
-	TopViewModel := TopViewModel{
-		Entries: entries,
+	var isFirstpoint bool
+	if page == 1 {
+		isFirstpoint = true
 	}
 
-	//log.Println(TopViewModel)
+	paginate := Paginate{
+		IsFirstpoint: isFirstpoint,
+		IsEndpoint:   isEndpoint,
+		CurrentPage:  page,
+		PrevPage:     page - 1,
+		NextPage:     page + 1,
+	}
 
-	tpl, _ := ace.Load("views/layouts/layout", "views/top", nil)
+	TopViewModel := TopViewModel{
+		Entries:  entries,
+		Paginate: paginate,
+	}
+
+	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true})
 	err := tpl.Execute(w, TopViewModel)
 
 	helper.InternalServerErrorCheck(err, w)
@@ -75,14 +85,14 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	p := bluemonday.UGCPolicy()
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
-	tpl, _ := ace.Load("views/layouts/layout", "views/view", nil)
+	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true})
 	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent})
 
 	helper.InternalServerErrorCheck(err, w)
 }
 
 func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, _ := ace.Load("views/layouts/layout", "views/new", nil)
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true})
 	err := tpl.Execute(w, nil)
 
 	helper.InternalServerErrorCheck(err, w)
@@ -125,7 +135,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 	if len(Error) > 0 {
-		tpl, _ := ace.Load("views/layouts/layout", "views/new", nil)
+		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true})
 		tpl.Execute(w, FormResultData{Entry, Error})
 		return
 	}
@@ -139,6 +149,6 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	tpl, _ := ace.Load("views/layouts/layout", "views/404", nil)
+	tpl, _ := ace.Load("views/layouts/layout", "views/404", &ace.Options{DynamicReload: true})
 	tpl.Execute(w, nil)
 }
