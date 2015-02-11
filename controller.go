@@ -9,8 +9,10 @@ import (
 	_ "github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
+	"github.com/shaoshing/train"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
+	"html/template"
 	"log"
 	"net/http"
 	"net/url"
@@ -28,6 +30,12 @@ type Paginate struct {
 type TopViewModel struct {
 	Entries  []model.Entry
 	Paginate Paginate
+}
+
+var AssetsMap = template.FuncMap{
+	"javascript_tag":            train.JavascriptTag,
+	"stylesheet_tag":            train.StylesheetTag,
+	"stylesheet_tag_with_param": train.StylesheetTagWithParam,
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -67,7 +75,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		Paginate: paginate,
 	}
 
-	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true})
+	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, TopViewModel)
 
 	helper.InternalServerErrorCheck(err, w)

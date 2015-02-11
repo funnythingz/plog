@@ -3,6 +3,9 @@ html
   head
     meta charset=utf-8
     title gogogo
+
+    {{stylesheet_tag "main"}}
+    {{javascript_tag "main"}}
   body
     .container
       = yield main

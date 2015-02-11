@@ -2,6 +2,7 @@ package main
 
 import (
 	"./db"
+	"github.com/shaoshing/train"
 	"github.com/zenazn/goji"
 	"net/http"
 	"regexp"
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	db.DbDevelopmentConnect()
+	train.ConfigureHttpHandler(nil)
 
 	goji.Get("/", top)
 	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entry)
