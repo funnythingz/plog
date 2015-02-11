@@ -50,7 +50,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		page, _ = strconv.Atoi(urlQuery["page"][0])
 	}
 
-	entries, isEndpoint := model.FindEntriesIndex(permit, page)
+	entries, nextEntries := model.FindEntriesIndex(permit, page)
 
 	if len(entries) == 0 && page > 1 {
 		NotFound(w, r)
@@ -60,6 +60,11 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 	var isFirstpoint bool
 	if page == 1 {
 		isFirstpoint = true
+	}
+
+	var isEndpoint bool
+	if len(nextEntries) == 0 {
+		isEndpoint = true
 	}
 
 	paginate := Paginate{
