@@ -1,1 +1,1 @@
-'use strict';
+//= require javascripts/bootstrap.min

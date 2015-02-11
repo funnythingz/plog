@@ -4,6 +4,8 @@ html
     meta charset=utf-8
     title gogogo
 
+    meta name="viewport" content="width=device-width, initial-scale=1"
+
     {{stylesheet_tag "main"}}
     {{javascript_tag "main"}}
   body
@@ -11,5 +13,6 @@ html
       = yield main
 
     footer
-      .copyright
-        | &copy; funnythingz
+      .container
+        .copyright
+          | &copy; funnythingz
