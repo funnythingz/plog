@@ -118,6 +118,7 @@ func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 type FormResultData struct {
 	Entry model.Entry
 	Error []string
+	Theme string
 }
 
 func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -153,7 +154,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 	if len(Error) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-		tpl.Execute(w, FormResultData{Entry, Error})
+		tpl.Execute(w, FormResultData{Entry, Error, "white"})
 		return
 	}
 

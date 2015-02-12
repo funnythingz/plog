@@ -16,11 +16,12 @@
             .form-group.form-group-lg
               label for="entry-title"
                 | Title
-              input.form-control type="text" name="entry[title]" id="entry-title"
+              input.form-control type="text" name="entry[title]" id="entry-title" value="{{.Entry.Title}}"
             .form-group.form-group-lg
               label for="entry-content"
                 | Content
               textarea.form-control name="entry[content]" id="entry-content" rows="10"
+                | {{.Entry.Content}}
             .form-group.form-group-lg
               .row
                 .col-sm-12
