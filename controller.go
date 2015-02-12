@@ -6,7 +6,7 @@ import (
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
-	"github.com/k0kubun/pp"
+	_ "github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"github.com/shaoshing/train"
@@ -80,7 +80,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		Paginate: paginate,
 	}
 
-	pp.Println(paginate)
+	log.Println(paginate)
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, TopViewModel)
@@ -157,6 +157,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	db.Dbmap.NewRecord(Entry)
 	db.Dbmap.Create(&Entry)
+	log.Println("Create: ", Entry)
 
 	url := fmt.Sprintf("/%d", Entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
