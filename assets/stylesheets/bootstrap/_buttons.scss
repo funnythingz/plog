@@ -89,6 +89,10 @@
   @include button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-border);
 }
 
+.btn-white {
+  @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
+}
+
 .btn-black {
   @include button-variant($btn-black-color, $btn-black-bg, $btn-black-border);
 }

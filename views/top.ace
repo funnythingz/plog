@@ -13,7 +13,7 @@
     section
       .row
         {{range .Entries}}
-          article.panel.panel-default.entry-item
+          article.panel.panel-default.entry-item class="theme-{{.Theme}}"
             a href="/{{.Id}}"
               .panel-heading
                 {{.Title}}

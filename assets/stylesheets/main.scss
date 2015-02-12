@@ -7,6 +7,38 @@
 body {
   font-family: 'Montserrat', sans-serif;
   padding-bottom: 70px;
+
+  &.theme-black {
+    color: $btn-black-color;
+    background-color: $btn-black-bg;
+    a {
+      color: darken($btn-black-color, 50%);
+    }
+  }
+
+  &.theme-white {
+    color: $btn-white-color;
+    background-color: $btn-white-bg;
+    a {
+      color: darken($btn-white-color, 50%);
+    }
+  }
+
+  &.theme-blue {
+    color: $btn-blue-color;
+    background-color: $btn-blue-bg;
+    a {
+      color: darken($btn-blue-bg, 30%);
+    }
+  }
+
+  &.theme-pink {
+    color: $btn-pink-color;
+    background-color: $btn-pink-bg;
+    a {
+      color: darken($btn-pink-bg, 30%);
+    }
+  }
 }
 
 .hero {
@@ -70,6 +102,34 @@ body {
 .entry-item {
   margin: 5px;
   float: left;
+
+  &.theme-black {
+    background-color: $btn-black-bg;
+    a {
+      color: $btn-black-color;
+    }
+  }
+
+  &.theme-white {
+    background-color: $btn-white-bg;
+    a {
+      color: $btn-white-color;
+    }
+  }
+
+  &.theme-blue {
+    background-color: $btn-blue-bg;
+    a {
+      color: $btn-blue-color;
+    }
+  }
+
+  &.theme-pink {
+    background-color: $btn-pink-bg;
+    a {
+      color: $btn-pink-color;
+    }
+  }
 }
 
 .create-form {

@@ -11,7 +11,7 @@ type Entry struct {
 	Id        int
 	Title     string
 	Content   string
-	ThemeId   int
+	Theme     string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

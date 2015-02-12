@@ -31,6 +31,7 @@ type Paginate struct {
 type TopViewModel struct {
 	Entries  []model.Entry
 	Paginate Paginate
+	Theme    string
 }
 
 var AssetsMap = template.FuncMap{
@@ -78,6 +79,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 	TopViewModel := TopViewModel{
 		Entries:  entries,
 		Paginate: paginate,
+		Theme:    "",
 	}
 
 	log.Println(paginate)
@@ -101,7 +103,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent})
+	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent, "Theme": entry.Theme})
 
 	helper.InternalServerErrorCheck(err, w)
 }
@@ -122,12 +124,12 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
 	content := r.FormValue("entry[content]")
-	themeId, _ := strconv.Atoi(r.FormValue("entry[theme_id]"))
+	theme := r.FormValue("entry[theme]")
 
 	Entry := model.Entry{
 		Title:   title,
 		Content: content,
-		ThemeId: themeId,
+		Theme:   theme,
 	}
 
 	if _, err := govalidator.ValidateStruct(Entry); err != nil {
