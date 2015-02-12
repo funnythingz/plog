@@ -101,10 +101,12 @@ body {
 
 .entry-item {
   margin: 5px;
-  float: left;
+  display: inline-block;
+  vertical-align: bottom;
 
   &.theme-black {
     background-color: $btn-black-bg;
+    border-color: $btn-black-border;
     a {
       color: $btn-black-color;
     }
@@ -112,6 +114,7 @@ body {
 
   &.theme-white {
     background-color: $btn-white-bg;
+    border-color: $btn-white-border;
     a {
       color: $btn-white-color;
     }
@@ -119,6 +122,7 @@ body {
 
   &.theme-blue {
     background-color: $btn-blue-bg;
+    border-color: $btn-blue-border;
     a {
       color: $btn-blue-color;
     }
@@ -126,6 +130,7 @@ body {
 
   &.theme-pink {
     background-color: $btn-pink-bg;
+    border-color: $btn-pink-border;
     a {
       color: $btn-pink-color;
     }

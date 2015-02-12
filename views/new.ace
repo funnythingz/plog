@@ -26,7 +26,7 @@
                 .col-sm-12
                   label for="entry-theme"
                     | Theme
-              .btn-group data-toggle="buttons" 
+              .btn-group#select-themes data-toggle="buttons"
                 label.btn.btn-white.active
                   input#option1 autocomplete="off" checked="checked" name="entry[theme]" type="radio" value="white"
                   | white
