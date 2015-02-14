@@ -17,6 +17,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"unicode/utf8"
 )
@@ -29,10 +30,19 @@ type Paginate struct {
 	NextPage     int
 }
 
+type MetaOg struct {
+	Title       string
+	Type        string
+	Url         string
+	Image       string
+	Description string
+}
+
 type TopViewModel struct {
 	Entries  []model.Entry
 	Paginate Paginate
 	Theme    string
+	MetaOg   MetaOg
 }
 
 var AssetsMap = template.FuncMap{
@@ -80,10 +90,19 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		NextPage:     page + 1,
 	}
 
+	meta := MetaOg{
+		Title: "",
+		Type:  "website",
+		//TODO: Url: "",
+		//TODO: Image:  "",
+		Description: "plog is a simple diary for people all over the world.",
+	}
+
 	TopViewModel := TopViewModel{
 		Entries:  entries,
 		Paginate: paginate,
 		Theme:    "",
+		MetaOg:   meta,
 	}
 
 	log.Println(paginate)
@@ -92,6 +111,13 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 	err := tpl.Execute(w, TopViewModel)
 
 	helper.InternalServerErrorCheck(err, w)
+}
+
+type EntryViewModel struct {
+	Title       string
+	HtmlContent string
+	Theme       string
+	MetaOg      MetaOg
 }
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -106,8 +132,24 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	p := bluemonday.UGCPolicy()
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
+	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
+	meta := MetaOg{
+		Title: entry.Title,
+		Type:  "article",
+		//TODO: Url: entry.Id,
+		//TODO: Image:  "",
+		Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
+	}
+
+	entryViewModel := EntryViewModel{
+		Title:       entry.Title,
+		HtmlContent: htmlContent,
+		Theme:       entry.Theme,
+		MetaOg:      meta,
+	}
+
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-	err := tpl.Execute(w, map[string]string{"Title": entry.Title, "HtmlContent": htmlContent, "Theme": entry.Theme})
+	err := tpl.Execute(w, entryViewModel)
 
 	helper.InternalServerErrorCheck(err, w)
 }

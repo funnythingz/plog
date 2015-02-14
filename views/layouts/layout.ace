@@ -2,9 +2,31 @@
 html
   head
     meta charset=utf-8
-    title plog
-
+    title
+      | {{if .MetaOg.Title}}{{.MetaOg.Title}} - {{end}}plog
     meta name="viewport" content="width=device-width, initial-scale=1"
+
+    {{if .MetaOg.Description}}
+      meta name="description" content="plog is a simple diary for people all over the world."
+    {{end}}
+
+    meta property="og:site_name" content="plog"
+
+    {{if .MetaOg.Title}}
+      meta property="og:title" content="{{.MetaOg.Title}}"
+    {{end}}
+    {{if .MetaOg.Type}}
+      meta property="og:type" content="{{.MetaOg.Type}}"
+    {{end}}
+    {{if .MetaOg.Url}}
+      meta property="og:url" content="{{.MetaOg.Url}}"
+    {{end}}
+    {{if .MetaOg.Image}}
+      meta property="og:image" content="{{.MetaOg.Image}}"
+    {{end}}
+    {{if .MetaOg.Description}}
+      meta property="og:description" content="{{.MetaOg.Description}}"
+    {{end}}
 
     link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
     {{stylesheet_tag "main"}}
