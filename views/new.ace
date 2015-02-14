@@ -1,7 +1,7 @@
 = content main
   section.text-center
     h1.heading
-      | Create diary
+      | New diary
     section.create-form
       .row
         .col-sm-8.col-sm-offset-2

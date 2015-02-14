@@ -48,5 +48,5 @@ html
             a.navbar-brand.footer-logo href="/"
               | plog
           .col-sm-6.pull-right.text-right
-            a.btn.btn-info.btn-lg.create-bottom href="/new"
-              | create
+            a.btn.btn-info.create-bottom href="/new"
+              | new

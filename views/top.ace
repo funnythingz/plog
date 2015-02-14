@@ -9,7 +9,7 @@
       .row
         .col-sm-6.col-sm-offset-3
           a.btn.btn-lg.btn-block.btn-success.create href="/new"
-            | create
+            | new diary
     section
       .row.text-center
         {{range .Entries}}
