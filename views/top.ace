@@ -16,7 +16,7 @@
           article.panel.panel-default.entry-item class="theme-{{.Theme}}"
             a href="/{{.Id}}"
               .panel-heading
-                {{.Title}}
+                {{truncate .Title 12}}
         {{end}}
     nav
       ul.pager

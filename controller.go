@@ -6,6 +6,7 @@ import (
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
+	"github.com/funnythingz/sunnyday"
 	_ "github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -37,6 +38,9 @@ type TopViewModel struct {
 var AssetsMap = template.FuncMap{
 	"javascript_tag": train.JavascriptTag,
 	"stylesheet_tag": train.StylesheetTag,
+	"truncate": func(s string, c int) string {
+		return sunnyday.Truncate(s, c)
+	},
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
