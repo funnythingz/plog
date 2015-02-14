@@ -54,7 +54,7 @@ var AssetsMap = template.FuncMap{
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
-	permit := 20
+	permit := 15
 
 	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)
 
