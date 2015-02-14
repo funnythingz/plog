@@ -105,6 +105,7 @@ body {
   height: 100px;
   display: inline-block;
   vertical-align: bottom;
+  overflow: hidden;
 
   a {
     width: 100px;
@@ -121,7 +122,7 @@ body {
     a {
       color: $btn-black-color;
       &:hover {
-        background-color: darken($btn-black-bg, 50%);
+        background-color: darken($btn-black-bg, 10%);
       }
     }
   }
@@ -132,7 +133,7 @@ body {
     a {
       color: $btn-white-color;
       &:hover {
-        background-color: darken($btn-white-bg, 50%);
+        background-color: darken($btn-white-bg, 10%);
       }
     }
   }
@@ -143,7 +144,7 @@ body {
     a {
       color: $btn-blue-color;
       &:hover {
-        background-color: darken($btn-blue-bg, 50%);
+        background-color: darken($btn-blue-bg, 10%);
       }
     }
   }
@@ -154,7 +155,7 @@ body {
     a {
       color: $btn-pink-color;
       &:hover {
-        background-color: darken($btn-pink-bg, 50%);
+        background-color: darken($btn-pink-bg, 10%);
       }
     }
   }
