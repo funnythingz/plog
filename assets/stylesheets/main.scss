@@ -169,11 +169,11 @@ body {
   margin-right: 5px;
 }
 
-.navbar-nav > li {
-  > a.create-small {
+.navbar {
+  .create-bottom {
     padding-top: 7px;
     padding-bottom: 7px;
-    margin-top: 7px;
+    margin-top: 5px;
     color: #f7f8f9;
   }
 }

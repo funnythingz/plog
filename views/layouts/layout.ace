@@ -43,16 +43,10 @@ html
             | &copy; funnythingz
     nav.navbar.navbar-default.navbar-fixed-bottom
       .container
-        .navbar-header
-          button.navbar-toggle.collapsed data-target="#navbar" data-toggle="collapse" type="button" 
-            span.sr-only Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          a.navbar-brand.footer-logo href="/"
-            | plog
-        #navbar.collapse.navbar-collapse
-          ul.nav.navbar-nav.navbar-right
-            li
-              a.btn.btn-info.create-small href="/new"
-                | create
+        .row
+          .col-sm-6.pull-left
+            a.navbar-brand.footer-logo href="/"
+              | plog
+          .col-sm-6.pull-right.text-right
+            a.btn.btn-info.btn-lg.create-bottom href="/new"
+              | create
