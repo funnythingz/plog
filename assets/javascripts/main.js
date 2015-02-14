@@ -6,4 +6,8 @@ $(function() {
   $('#select-themes label').on('click', function() {
     $('body').removeClass().addClass('theme-' + $('input', this).val());
   });
+
+  $('#helper').on('click', function() {
+    $('#help-content').toggle();
+  });
 });

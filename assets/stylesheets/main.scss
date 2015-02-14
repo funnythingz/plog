@@ -198,3 +198,17 @@ body {
   text-align: center;
   margin-bottom: 0;
 }
+
+.helper {
+  margin-bottom: 0;
+  cursor: pointer;
+
+  + .help-content {
+    margin-top: 10px;
+  }
+}
+
+.help-content {
+  display: none;
+  margin-bottom: 0;
+}

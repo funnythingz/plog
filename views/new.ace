@@ -3,13 +3,53 @@
     h1.heading
       | Create diary
     section.create-form
-      {{if .Error}}
-        ul.error.list-unstyled.alert.alert-danger
-          {{range .Error}}
-            li
-              | {{.}}
+      .row
+        .col-sm-8.col-sm-offset-2
+          {{if .Error}}
+            ul.error.list-unstyled.alert.alert-danger
+              {{range .Error}}
+                li
+                  | {{.}}
+              {{end}}
           {{end}}
-      {{end}}
+      .row.text-left
+        .col-sm-8.col-sm-offset-2
+          .alert.alert-info
+            p.helper#helper
+              i.fa.fa-info-circle
+              | &nbsp;
+              | You can use markdown.
+            ul.list-unstyled.help-content#help-content
+              li
+                pre
+                  | # heading1
+                  br
+                  br
+                  | text text text
+                  br
+                  br
+                  | ## heading2
+                  br
+                  br
+                  | text text text text
+                  br
+                  br
+                  | ```
+                  br
+                  | $ echo "hello"
+                  br
+                  | ```
+                  br
+                  br
+                  | ### heading3
+                  br
+                  br
+                  | text text text text
+                  br
+                  br
+                  | - list1
+                  br
+                  | - list2
       .row
         .col-sm-8.col-sm-offset-2
           form method="post" action="/entry"
