@@ -1,0 +1,165 @@
+GoでWebサービスをつくってみた
+26 Feb 2015
+Tags: go golang
+
+Hiroki Oiwa
+web developer at nanapi
+
+@funnythingz
+https://github.com/funnythingz
+
+* Profile
+
+.image https://avatars0.githubusercontent.com/u/255213?v=3&amp;s=240
+
+- GitHub
+- Ruby on Rails
+- TypeScript
+- Go
+
+* Agenda
+
+- なぜGoなのか
+- つくったサービスの紹介
+- こんなGoパッケージを使ったよ！
+- 所感
+
+* なぜGoなのか
+
+* なぜGoなのか
+
+流行ってる！モテる！
+過度に尖っていく他言語にちょっと疲れた
+
+* つくったサービスの紹介
+
+* ゆるふわ匿名ダイアリーをつくったよ
+
+.iframe http://localhost:3000/ 600 1000
+
+* plogについて
+
+- 匿名ダイアリー
+- ソーシャル疲れからの解放
+- ログイン不要
+- だれでも投稿できる
+- マークダウンつかえる
+- ゆるふわ
+- pplogとは関係ない (plogをつくった時はpplogの存在自体知らなかった)
+
+* こんなGoパッケージを使ったよ！
+
+* Goのエコシステムを活用する
+
+Goに入ったらGoに従えの気持ちでつくってみた
+
+それでは実際のコードみてみましょう(・ω<)
+
+* Go Manager - github.com/mattn/gom
+
+  ./Gomfile
+
+.code ../Gomfile
+
+  % gom install
+  % gom run app.go
+
+* Minimalistic web framework - github.com/zenazn/goji
+
+  ./app.go
+
+.code ../app.go
+
+* Asset Management - github.com/shaoshing/train
+
+  └── assets
+      ├── javascripts
+      │   └── main.js
+      └── stylesheets
+          └── main.scss
+
+.code ../app.go 13
+
+.code ../controller.go 48,50
+
+* ORMapper - github.com/jinzhu/gorm
+
+init
+
+.code ../db/dbmap.go 13,31
+
+* ORMapper - github.com/jinzhu/gorm
+
+migration
+
+.code ../migrate/migration.go 9,26
+
+* ORMapper - github.com/jinzhu/gorm
+
+model
+
+.code ../models/entry.go 10,29
+
+* validater - github.com/asaskevich/govalidator
+
+.code ../controller.go 172,186
+
+* Converter
+
+*Markdown* to HTML - github.com/russross/blackfriday
+
+*Sanitizer* - github.com/microcosm-cc/bluemonday
+
+.code ../controller.go 132,133
+
+* Truncate - github.com/funnythingz/sunnyday
+
+.code ../controller.go 48,53
+
+.code ../views/top.ace 13,20
+
+* template - github.com/yosssi/ace
+
+layout
+
+.code ../views/layouts/layout.ace
+
+* template - github.com/yosssi/ace
+
+view
+
+.code ../views/top.ace
+
+* template - github.com/yosssi/ace
+
+load
+
+.code ../controller.go 157,162
+
+* Live reload utility - github.com/codegangsta/gin
+
+  % gom exec gin
+  [gin] listening on port 3000
+
+* 所感
+
+* こんなところがステキ
+
+- イケイケな尖った感じの言語じゃないのでマッタリ書けて良い
+- Goの標準パッケージで基本的なことはだいたいできる
+- パッケージがGitHubで公開されているので簡単に使える
+- 公開するのも簡単
+- 今回はWebサービスをつくったが、WebサーバーやdaemonもつくれるのですべてGoでできちゃう
+
+* こんなところがつらい
+
+- まだまだGoのパッケージが充実しているとは言えないので自分でいろいろつくらなきゃいけない
+- 良くも悪くもシンプル
+- Railsのようなフルスタックなものはまだない (っぽいものはあるがすでにメンテされていない)
+- Goでつくったものを気軽に公開できる安価なサーバーが少ない
+
+* さいごに
+
+*純粋にプログラミングが楽しめるのがGoの良いところだと思うよ！*
+
+.image ./space_gopher.jpg
