@@ -14,6 +14,12 @@ body {
     a {
       color: darken($btn-black-color, 50%);
     }
+
+    .entry {
+      .date {
+        color: darken($btn-black-color, 50%);
+      }
+    }
   }
 
   &.theme-white {
@@ -21,6 +27,12 @@ body {
     background-color: $btn-white-bg;
     a {
       color: darken($btn-white-color, 50%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-white-color, 50%);
+      }
     }
   }
 
@@ -30,6 +42,12 @@ body {
     a {
       color: darken($btn-blue-bg, 30%);
     }
+
+    .entry {
+      .date {
+        color: darken($btn-blue-bg, 30%);
+      }
+    }
   }
 
   &.theme-pink {
@@ -37,6 +55,12 @@ body {
     background-color: $btn-pink-bg;
     a {
       color: darken($btn-pink-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-pink-bg, 30%);
+      }
     }
   }
 }
@@ -84,6 +108,11 @@ body {
     margin: 20px 0;
     font-size: 42px;
     line-height: 1.2;
+
+    .date {
+      margin-left: 1em;
+      font-size: 14px;
+    }
   }
 
   .content {

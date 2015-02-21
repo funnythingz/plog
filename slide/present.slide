@@ -100,17 +100,13 @@ model
 
 .code ../models/entry.go 10,29
 
-* validater - github.com/asaskevich/govalidator
-
-.code ../controller.go 172,186
-
 * Converter
 
 *Markdown* to HTML - github.com/russross/blackfriday
 
 *Sanitizer* - github.com/microcosm-cc/bluemonday
 
-.code ../controller.go 132,133
+.code ../controller.go 134,135
 
 * Truncate - github.com/funnythingz/sunnyday
 
@@ -135,6 +131,16 @@ view
 load
 
 .code ../controller.go 157,162
+
+* validation
+
+.code ../controller.go 195,211
+
+* test - testing
+
+.code ../entry_test.go 46,63
+
+  % go test -v
 
 * Live reload utility - github.com/codegangsta/gin
 

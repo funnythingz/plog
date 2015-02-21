@@ -19,6 +19,7 @@ import (
 	"net/url"
 	"regexp"
 	"strconv"
+	"time"
 	"unicode/utf8"
 )
 
@@ -115,6 +116,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 
 type EntryViewModel struct {
 	Title       string
+	Date        string
 	HtmlContent string
 	Theme       string
 	MetaOg      MetaOg
@@ -141,8 +143,12 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 		Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
 	}
 
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	entryCreatedAtJST := entry.CreatedAt.In(jst)
+
 	entryViewModel := EntryViewModel{
 		Title:       entry.Title,
+		Date:        entryCreatedAtJST.Format(time.ANSIC),
 		HtmlContent: htmlContent,
 		Theme:       entry.Theme,
 		MetaOg:      meta,

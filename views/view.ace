@@ -2,6 +2,8 @@
   article.entry
     h1
       | {{.Title}}
+      small.date
+        | {{.Date}}
     section.content
       | {{HTML .HtmlContent}}
   .text-center
