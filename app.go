@@ -7,10 +7,19 @@ import (
 	"net"
 	"net/http"
 	"net/http/fcgi"
+	"os"
 	"regexp"
 )
 
 func main() {
+
+	errcd := Daemon(0, 0)
+	if errcd != 0 {
+		os.Exit(1)
+	}
+
+	os.Chdir("./")
+
 	db.DbDevelopmentConnect()
 	train.ConfigureHttpHandler(nil)
 
