@@ -7,14 +7,14 @@ import (
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/funnythingz/sunnyday"
-	_ "github.com/k0kubun/pp"
+	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"github.com/shaoshing/train"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
 	"html/template"
-	"log"
+	_ "log"
 	"net/http"
 	"net/url"
 	"regexp"
@@ -106,7 +106,7 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 		MetaOg:   meta,
 	}
 
-	log.Println(paginate)
+	pp.Println(paginate)
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, TopViewModel)
@@ -168,9 +168,10 @@ func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 type FormResultData struct {
-	Entry model.Entry
-	Error []string
-	Theme string
+	Entry  model.Entry
+	Error  []string
+	Theme  string
+	MetaOg MetaOg
 }
 
 func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -179,6 +180,8 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	content := r.FormValue("entry[content]")
 	theme := r.FormValue("entry[theme]")
 
+	pp.Println(title, content, theme)
+
 	Entry := model.Entry{
 		Title:   title,
 		Content: content,
@@ -186,7 +189,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, err := govalidator.ValidateStruct(Entry); err != nil {
-		log.Println(err.Error())
+		pp.Println(err.Error())
 	}
 
 	Error := []string{}
@@ -204,15 +207,18 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	if utf8.RuneCountInString(content) < 5 || utf8.RuneCountInString(content) > 1000 {
 		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
 	}
+
 	if len(Error) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-		tpl.Execute(w, FormResultData{Entry, Error, "white"})
+		err := tpl.Execute(w, FormResultData{Entry, Error, "white", MetaOg{}})
+		pp.Println(err)
+		pp.Println(Error)
 		return
 	}
 
 	db.Dbmap.NewRecord(Entry)
 	db.Dbmap.Create(&Entry)
-	log.Println("Create: ", Entry)
+	pp.Println("Create: ", Entry)
 
 	url := fmt.Sprintf("/%d", Entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
