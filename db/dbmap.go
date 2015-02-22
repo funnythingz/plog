@@ -3,8 +3,8 @@ package db
 import (
 	"../helper"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-yaml/yaml"
 	"github.com/jinzhu/gorm"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	_ "log"
 	_ "reflect"
