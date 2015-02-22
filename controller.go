@@ -52,6 +52,9 @@ var AssetsMap = template.FuncMap{
 	"truncate": func(s string, c int) string {
 		return sunnyday.Truncate(s, c)
 	},
+	"url_encode": func(s string) string {
+		return url.QueryEscape(s)
+	},
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -92,9 +95,9 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	meta := MetaOg{
-		Title: "",
+		Title: "plog is a simple diary for people all over the world.",
 		Type:  "website",
-		//TODO: Url: "",
+		Url:   "http://plog.link",
 		//TODO: Image:  "",
 		Description: "plog is a simple diary for people all over the world.",
 	}
@@ -138,10 +141,13 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	meta := MetaOg{
 		Title: entry.Title,
 		Type:  "article",
-		//TODO: Url: entry.Id,
+		Url:   "http://plog.link/" + strconv.Itoa(entry.Id),
 		//TODO: Image:  "",
 		Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
 	}
+
+	pp.Println(entry)
+	pp.Println(meta)
 
 	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 	entryCreatedAtJST := entry.CreatedAt.In(jst)

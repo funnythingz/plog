@@ -4,6 +4,46 @@
       | {{.Title}}
       small.date
         | {{.Date}}
+
+    .share-buttons
+      ul.list-inline.text-right
+        li.facebook
+          .fb-like data-action="like" data-href="{{.MetaOg.Url}}" data-layout="button_count" data-share="true" data-show-faces="true"
+        li.hatebu
+          a.hatena-bookmark-button data-hatena-bookmark-layout="simple-balloon" data-hatena-bookmark-title="{{.MetaOg.Title}}" href="http://b.hatena.ne.jp/entry/{{url_encode .MetaOg.Url}}" title="このエントリーをはてなブックマークに追加"
+            img alt="このエントリーをはてなブックマークに追加" height="20" src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" style="border: none;" width="20"
+          script async="async" charset="utf-8" src="https://b.st-hatena.com/js/bookmark_button.js" type="text/javascript"
+        li.twitter
+          a.twitter-share-button data-url="{{.MetaOg.Url}}" href="https://twitter.com/share"
+            | Tweet
+          = javascript
+            window.twttr = (function (d, s, id) {
+              var t, js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) {
+                return
+              }
+              js = d.createElement(s);
+              js.id = id;
+              js.src = "https://platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js, fjs);
+              return window.twttr || (t = {
+                        _e: [], ready: function (f) {
+                          t._e.push(f)
+                        }
+                      })
+            }(document, "script", "twitter-wjs"));
+
+    #fb-root
+    = javascript
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=384466538403707&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
     section.content
       | {{HTML .HtmlContent}}
   .text-center
