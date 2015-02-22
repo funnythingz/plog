@@ -35,7 +35,7 @@ https://github.com/funnythingz
 
 * ゆるふわ匿名ダイアリーをつくったよ
 
-.iframe http://localhost:3000/ 600 1000
+.iframe http://plog.link/ 600 1000
 
 * plogについて
 
@@ -81,6 +81,15 @@ Goに入ったらGoに従えの気持ちでつくってみた
 .code ../app.go 13
 
 .code ../controller.go 48,50
+
+  % train
+  -> clean bundled assets
+  -> copy assets from assets
+  -> bundle and compile assets
+  -> compress assets
+  [public/assets/javascripts/bootstrap.js public/assets/javascripts/main.js]
+  [public/assets/stylesheets/main.css]
+  -> Fingerprinting Assets
 
 * ORMapper - github.com/jinzhu/gorm
 
@@ -130,11 +139,11 @@ view
 
 load
 
-.code ../controller.go 157,162
+.code ../controller.go 149,160
 
 * validation
 
-.code ../controller.go 195,211
+.code ../controller.go 195,217
 
 * test - testing
 
