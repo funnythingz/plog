@@ -30,3 +30,5 @@ gin-bin
 database.yml
 _vendor
 .sass-cache/
+public/**/*.scss
+.css$:.css
