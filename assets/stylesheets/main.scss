@@ -104,14 +104,18 @@ body {
 .entry {
   margin: 40px 0;
 
-  > h1 {
-    margin: 20px 0;
-    font-size: 42px;
-    line-height: 1.2;
+  hgroup {
+    margin: 20px 0 30px;
 
-    .date {
-      margin-left: 1em;
-      font-size: 14px;
+    > h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin: 0 0 .5em;
+
+      .date {
+        margin-left: 1em;
+        font-size: 14px;
+      }
     }
   }
 
