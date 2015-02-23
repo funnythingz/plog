@@ -23,10 +23,14 @@ html
     {{end}}
     {{if .MetaOg.Image}}
       meta property="og:image" content="{{.MetaOg.Image}}"
+    {{else}}
+      meta property="og:image" content="/assets/images/plog.png"
     {{end}}
     {{if .MetaOg.Description}}
       meta property="og:description" content="{{.MetaOg.Description}}"
     {{end}}
+
+    link rel="apple-touch-icon-precomposed" href="/assets/images/plog.png"
 
     link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
     {{stylesheet_tag "main"}}
