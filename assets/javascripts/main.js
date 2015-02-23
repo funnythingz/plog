@@ -10,4 +10,11 @@ $(function() {
   $('#helper').on('click', function() {
     $('#help-content').toggle();
   });
+
+  $('#create').on('click', function(e) {
+    if(!confirm('are you ok?')) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  });
 });

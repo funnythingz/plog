@@ -18,7 +18,7 @@
             p.helper#helper
               i.fa.fa-info-circle
               | &nbsp;
-              | You can use markdown.
+              | You can use markdown. click to open example.
             ul.list-unstyled.help-content#help-content
               li
                 pre
@@ -81,7 +81,7 @@
                   input#option3 autocomplete="off" name="entry[theme]" type="radio" value="pink"
                   | pink
             .form-group.form-group-lg
-              input.btn.btn-block.btn-lg.btn-primary.create type="submit" value="Create!"
+              input.btn.btn-block.btn-lg.btn-primary.create#create type="submit" value="Create!"
 
   .text-center
     a.btn.btn-default.btn-sm href="/"
