@@ -110,12 +110,14 @@ body {
     > h1 {
       font-size: 42px;
       line-height: 1.2;
-      margin: 0 0 .5em;
+      margin: 0 0 10px;
+    }
 
-      .date {
-        margin-left: 1em;
-        font-size: 14px;
-      }
+    .date {
+      display: block;
+      margin-left: 1em;
+      font-size: 14px;
+      text-align: right;
     }
   }
 
