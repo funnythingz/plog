@@ -124,11 +124,19 @@ body {
   .content {
     p {
       line-height: 1.5;
+      font-size: 18px;
     }
 
     ul {
       li {
         line-height: 1.5;
+        font-size: 18px;
+      }
+    }
+
+    pre {
+      code {
+        font-size: 16px;
       }
     }
   }
