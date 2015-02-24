@@ -68,6 +68,9 @@ body {
 .hero {
   text-align: center;
   margin-bottom: 40px;
+  @media (max-width: $screen-sm-min) {
+    margin-bottom: 10px;
+  }
 }
 
 .logo {
@@ -75,12 +78,20 @@ body {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   margin-bottom: 10px;
+  @media (max-width: $screen-sm-min) {
+    font-size: 48px;
+    margin-top: 10px;
+  }
 }
 
 .heading {
   font-size: 48px;
   font-family: 'Quicksand', sans-serif;
   margin-bottom: 10px;
+  @media (max-width: $screen-sm-min) {
+    font-size: 36px;
+    margin-top: 10px;
+  }
 }
 
 .description {
@@ -206,6 +217,9 @@ body {
 
 .create-form {
   margin: 40px 0;
+  @media (max-width: $screen-sm-min) {
+    margin-top: 10px;
+  }
 }
 
 .icon-left {
