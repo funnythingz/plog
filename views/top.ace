@@ -12,6 +12,36 @@
           | g
     p.lead.description
       | is a simple diary for people all over the world.
+  section
+    section.action
+      .row
+        .col-sm-6.col-sm-offset-3
+          a.btn.btn-lg.btn-block.btn-success.create href="/new"
+            | new diary
+    section
+      .row.text-center
+        {{range .Entries}}
+          article.panel.panel-default.entry-item class="theme-{{.Theme}}"
+            a href="/{{.Id}}"
+              .panel-heading
+                {{truncate .Title 12}}
+        {{end}}
+    nav
+      ul.pager
+        {{if not .Paginate.IsFirstpoint}}
+          li.previous
+            a href="?page={{.Paginate.PrevPage}}"
+              i.fa.fa-arrow-left
+              span.prev-text
+                | prev
+        {{end}}
+        {{if not .Paginate.IsEndpoint}}
+          li.next
+            a href="?page={{.Paginate.NextPage}}"
+              span.next-text
+                | next
+              i.fa.fa-arrow-right
+        {{end}}
 
     .share-buttons
       ul.list-inline.text-center
@@ -51,34 +81,3 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=384466538403707&version=v2.0";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-
-  section
-    section.action
-      .row
-        .col-sm-6.col-sm-offset-3
-          a.btn.btn-lg.btn-block.btn-success.create href="/new"
-            | new diary
-    section
-      .row.text-center
-        {{range .Entries}}
-          article.panel.panel-default.entry-item class="theme-{{.Theme}}"
-            a href="/{{.Id}}"
-              .panel-heading
-                {{truncate .Title 12}}
-        {{end}}
-    nav
-      ul.pager
-        {{if not .Paginate.IsFirstpoint}}
-          li.previous
-            a href="?page={{.Paginate.PrevPage}}"
-              i.fa.fa-arrow-left
-              span.prev-text
-                | prev
-        {{end}}
-        {{if not .Paginate.IsEndpoint}}
-          li.next
-            a href="?page={{.Paginate.NextPage}}"
-              span.next-text
-                | next
-              i.fa.fa-arrow-right
-        {{end}}
