@@ -125,7 +125,7 @@ https://github.com/funnythingz
 
 config
 
-.code ../database.yml
+.code ../database.yml.sample
 
 * ORMapper - github.com/jinzhu/gorm
 
