@@ -45,12 +45,8 @@ html
         p.copyright
           a href="http://funnythingz.com" target="_blank"
             | &copy; funnythingz
-    nav.navbar.navbar-default.navbar-fixed-bottom
-      .container
-        .row
-          .col-sm-6.pull-left
-            a.navbar-brand.footer-logo href="/"
-              | plog
-          .col-sm-6.pull-right.text-right
-            a.btn.btn-info.create-bottom href="/new"
-              | new
+    .container
+      .nav-footer
+        a.footer-logo href="/"
+          .hide
+            | plog
