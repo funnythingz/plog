@@ -101,6 +101,10 @@ body {
     .l {color: $brand-green}
     .o {color: $brand-pink}
     .g {color: $brand-black}
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
