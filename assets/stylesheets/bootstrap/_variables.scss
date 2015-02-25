@@ -23,8 +23,9 @@ $brand-danger:          #d9534f !default;
 
 $brand-white:           #ffffff !default;
 $brand-black:           #313233 !default;
-$brand-pink:            #EC799A !default;
-$brand-blue:            #39f    !default;
+$brand-pink:            #E14B96 !default;
+$brand-blue:            #376EAF !default;
+$brand-green:           #32A55F !default;
 
 //== Scaffolding
 //
@@ -181,7 +182,7 @@ $btn-link-disabled-color:        $gray-light !default;
 
 $btn-white-color:                #345 !default;
 $btn-white-bg:                   $brand-white !default;
-$btn-white-border:               darken($btn-white-bg, 5%) !default;
+$btn-white-border:               darken($btn-white-bg, 15%) !default;
 
 $btn-black-color:                 #fff !default;
 $btn-black-bg:                    $brand-black !default;
@@ -194,6 +195,10 @@ $btn-pink-border:                darken($btn-pink-bg, 5%) !default;
 $btn-blue-color:                 #fff !default;
 $btn-blue-bg:                    $brand-blue !default;
 $btn-blue-border:                darken($btn-blue-bg, 5%) !default;
+
+$btn-green-color:                 #fff !default;
+$btn-green-bg:                    $brand-green !default;
+$btn-green-border:                darken($btn-green-bg, 5%) !default;
 
 
 //== Forms

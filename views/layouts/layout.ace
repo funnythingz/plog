@@ -23,10 +23,14 @@ html
     {{end}}
     {{if .MetaOg.Image}}
       meta property="og:image" content="{{.MetaOg.Image}}"
+    {{else}}
+      meta property="og:image" content="/assets/images/logo.png"
     {{end}}
     {{if .MetaOg.Description}}
       meta property="og:description" content="{{.MetaOg.Description}}"
     {{end}}
+
+    link rel="apple-touch-icon-precomposed" href="/assets/images/logo.png"
 
     link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
     {{stylesheet_tag "main"}}
@@ -41,12 +45,8 @@ html
         p.copyright
           a href="http://funnythingz.com" target="_blank"
             | &copy; funnythingz
-    nav.navbar.navbar-default.navbar-fixed-bottom
-      .container
-        .row
-          .col-sm-6.pull-left
-            a.navbar-brand.footer-logo href="/"
-              | plog
-          .col-sm-6.pull-right.text-right
-            a.btn.btn-info.create-bottom href="/new"
-              | new
+    .container
+      .nav-footer
+        a.footer-logo href="/"
+          .hide
+            | plog

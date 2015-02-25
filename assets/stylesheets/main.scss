@@ -63,11 +63,28 @@ body {
       }
     }
   }
+
+  &.theme-green {
+    color: $btn-green-color;
+    background-color: $btn-green-bg;
+    a {
+      color: darken($btn-green-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-green-bg, 30%);
+      }
+    }
+  }
 }
 
 .hero {
   text-align: center;
   margin-bottom: 40px;
+  @media (max-width: $screen-sm-min) {
+    margin-bottom: 10px;
+  }
 }
 
 .logo {
@@ -75,12 +92,30 @@ body {
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   margin-bottom: 10px;
+  @media (max-width: $screen-sm-min) {
+    font-size: 48px;
+    margin-top: 10px;
+  }
+  a {
+    .p {color: $brand-blue}
+    .l {color: $brand-green}
+    .o {color: $brand-pink}
+    .g {color: $brand-black}
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .heading {
   font-size: 48px;
   font-family: 'Quicksand', sans-serif;
   margin-bottom: 10px;
+  @media (max-width: $screen-sm-min) {
+    font-size: 36px;
+    margin-top: 10px;
+  }
 }
 
 .description {
@@ -104,25 +139,39 @@ body {
 .entry {
   margin: 40px 0;
 
-  > h1 {
-    margin: 20px 0;
-    font-size: 42px;
-    line-height: 1.2;
+  hgroup {
+    margin: 20px 0 30px;
+
+    > h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      margin: 0 0 10px;
+    }
 
     .date {
+      display: block;
       margin-left: 1em;
       font-size: 14px;
+      text-align: right;
     }
   }
 
   .content {
     p {
       line-height: 1.5;
+      font-size: 18px;
     }
 
     ul {
       li {
         line-height: 1.5;
+        font-size: 18px;
+      }
+    }
+
+    pre {
+      code {
+        font-size: 16px;
       }
     }
   }
@@ -188,23 +237,50 @@ body {
       }
     }
   }
+
+  &.theme-green {
+    background-color: $btn-green-bg;
+    border-color: $btn-green-border;
+    a {
+      color: $btn-green-color;
+      &:hover {
+        background-color: darken($btn-green-bg, 10%);
+      }
+    }
+  }
 }
 
 .create-form {
   margin: 40px 0;
+  @media (max-width: $screen-sm-min) {
+    margin-top: 10px;
+  }
 }
 
 .icon-left {
   margin-right: 5px;
 }
 
-.navbar {
-  .create-bottom {
-    padding-top: 7px;
-    padding-bottom: 7px;
-    margin-top: 7px;
-    color: #f7f8f9;
-  }
+.nav-footer {
+  position: fixed;
+  bottom: 15px;
+  width: 100%;
+  left: 0; right: 0;
+}
+
+.footer-logo {
+  display: block;
+  margin: 0 auto;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.5) url("/assets/images/logo.png") no-repeat center center;
+  background-size: 28px 28px;
+  border: solid 1px #e1e2e3;
+  border-radius: 50%;
+}
+
+.hide {
+  visibility: hidden;
 }
 
 .prev-text {
