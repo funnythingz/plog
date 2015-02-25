@@ -63,6 +63,20 @@ body {
       }
     }
   }
+
+  &.theme-green {
+    color: $btn-green-color;
+    background-color: $btn-green-bg;
+    a {
+      color: darken($btn-green-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-green-bg, 30%);
+      }
+    }
+  }
 }
 
 .hero {
@@ -216,6 +230,17 @@ body {
       color: $btn-pink-color;
       &:hover {
         background-color: darken($btn-pink-bg, 10%);
+      }
+    }
+  }
+
+  &.theme-green {
+    background-color: $btn-green-bg;
+    border-color: $btn-green-border;
+    a {
+      color: $btn-green-color;
+      &:hover {
+        background-color: darken($btn-green-bg, 10%);
       }
     }
   }

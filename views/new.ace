@@ -80,6 +80,9 @@
                 label.btn.btn-pink
                   input#option3 autocomplete="off" name="entry[theme]" type="radio" value="pink"
                   | pink
+                label.btn.btn-green
+                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="green"
+                  | green
             .form-group.form-group-lg
               input.btn.btn-block.btn-lg.btn-primary.create#create type="submit" value="Create!"
 

@@ -89,6 +89,10 @@
   @include button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-border);
 }
 
+.btn-green {
+  @include button-variant($btn-green-color, $btn-green-bg, $btn-green-border);
+}
+
 .btn-white {
   @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
 }
