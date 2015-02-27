@@ -81,6 +81,14 @@
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
 
+.btn-white {
+  @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
+}
+
+.btn-black {
+  @include button-variant($btn-black-color, $btn-black-bg, $btn-black-border);
+}
+
 .btn-pink {
   @include button-variant($btn-pink-color, $btn-pink-bg, $btn-pink-border);
 }
@@ -89,16 +97,20 @@
   @include button-variant($btn-blue-color, $btn-blue-bg, $btn-blue-border);
 }
 
+.btn-sky {
+  @include button-variant($btn-sky-color, $btn-sky-bg, $btn-sky-border);
+}
+
 .btn-green {
   @include button-variant($btn-green-color, $btn-green-bg, $btn-green-border);
 }
 
-.btn-white {
-  @include button-variant($btn-white-color, $btn-white-bg, $btn-white-border);
+.btn-purple {
+  @include button-variant($btn-purple-color, $btn-purple-bg, $btn-purple-border);
 }
 
-.btn-black {
-  @include button-variant($btn-black-color, $btn-black-bg, $btn-black-border);
+.btn-yellow {
+  @include button-variant($btn-yellow-color, $btn-yellow-bg, $btn-yellow-border);
 }
 
 

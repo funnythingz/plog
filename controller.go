@@ -160,7 +160,10 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	helper.InternalServerErrorCheck(err, w)
 }
 
+var Colors []string = []string{"white", "black", "pink", "blue", "sky", "green", "purple", "yellow"}
+
 func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+
 	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
 	err := tpl.Execute(w, nil)
 
@@ -172,6 +175,7 @@ type FormResultData struct {
 	Error  []string
 	Theme  string
 	MetaOg MetaOg
+	Colors []string
 }
 
 func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -210,7 +214,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	if len(Error) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-		err := tpl.Execute(w, FormResultData{Entry, Error, "white", MetaOg{}})
+		err := tpl.Execute(w, FormResultData{Entry, Error, "white", MetaOg{}, Colors})
 		pp.Println(err)
 		pp.Println(Error)
 		return

@@ -23,9 +23,12 @@ $brand-danger:          #d9534f !default;
 
 $brand-white:           #ffffff !default;
 $brand-black:           #313233 !default;
-$brand-pink:            #E14B96 !default;
-$brand-blue:            #376EAF !default;
-$brand-green:           #32A55F !default;
+$brand-pink:            #FF5BAA !default;
+$brand-blue:            #0094FF !default;
+$brand-sky:             #6BDAE8 !default;
+$brand-green:           #139F5A !default;
+$brand-purple:          #C55BFF !default;
+$brand-yellow:          #FFEF69 !default;
 
 //== Scaffolding
 //
@@ -184,9 +187,9 @@ $btn-white-color:                #345 !default;
 $btn-white-bg:                   $brand-white !default;
 $btn-white-border:               darken($btn-white-bg, 15%) !default;
 
-$btn-black-color:                 #fff !default;
-$btn-black-bg:                    $brand-black !default;
-$btn-black-border:                darken($btn-black-bg, 5%) !default;
+$btn-black-color:                #fff !default;
+$btn-black-bg:                   $brand-black !default;
+$btn-black-border:               darken($btn-black-bg, 5%) !default;
 
 $btn-pink-color:                 #fff !default;
 $btn-pink-bg:                    $brand-pink !default;
@@ -196,9 +199,21 @@ $btn-blue-color:                 #fff !default;
 $btn-blue-bg:                    $brand-blue !default;
 $btn-blue-border:                darken($btn-blue-bg, 5%) !default;
 
-$btn-green-color:                 #fff !default;
-$btn-green-bg:                    $brand-green !default;
-$btn-green-border:                darken($btn-green-bg, 5%) !default;
+$btn-sky-color:                  #345 !default;
+$btn-sky-bg:                     $brand-sky !default;
+$btn-sky-border:                 darken($btn-sky-bg, 5%) !default;
+
+$btn-green-color:                #fff !default;
+$btn-green-bg:                   $brand-green !default;
+$btn-green-border:               darken($btn-green-bg, 5%) !default;
+
+$btn-purple-color:               #fff !default;
+$btn-purple-bg:                  $brand-purple !default;
+$btn-purple-border:              darken($btn-purple-bg, 5%) !default;
+
+$btn-yellow-color:               #345 !default;
+$btn-yellow-bg:                  $brand-yellow !default;
+$btn-yellow-border:              darken($btn-yellow-bg, 5%) !default;
 
 
 //== Forms

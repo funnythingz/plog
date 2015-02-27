@@ -37,20 +37,6 @@ body {
     }
   }
 
-  &.theme-blue {
-    color: $btn-blue-color;
-    background-color: $btn-blue-bg;
-    a {
-      color: darken($btn-blue-bg, 30%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-blue-bg, 30%);
-      }
-    }
-  }
-
   &.theme-pink {
     color: $btn-pink-color;
     background-color: $btn-pink-bg;
@@ -65,6 +51,34 @@ body {
     }
   }
 
+  &.theme-blue {
+    color: $btn-blue-color;
+    background-color: $btn-blue-bg;
+    a {
+      color: darken($btn-blue-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-blue-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-sky {
+    color: $btn-sky-color;
+    background-color: $btn-sky-bg;
+    a {
+      color: darken($btn-sky-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-sky-bg, 30%);
+      }
+    }
+  }
+
   &.theme-green {
     color: $btn-green-color;
     background-color: $btn-green-bg;
@@ -75,6 +89,34 @@ body {
     .entry {
       .date {
         color: darken($btn-green-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-purple {
+    color: $btn-purple-color;
+    background-color: $btn-purple-bg;
+    a {
+      color: darken($btn-purple-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-purple-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-yellow {
+    color: $btn-yellow-color;
+    background-color: $btn-yellow-bg;
+    a {
+      color: darken($btn-yellow-bg, 30%);
+    }
+
+    .entry {
+      .date {
+        color: darken($btn-yellow-bg, 30%);
       }
     }
   }
@@ -217,17 +259,6 @@ body {
     }
   }
 
-  &.theme-blue {
-    background-color: $btn-blue-bg;
-    border-color: $btn-blue-border;
-    a {
-      color: $btn-blue-color;
-      &:hover {
-        background-color: darken($btn-blue-bg, 10%);
-      }
-    }
-  }
-
   &.theme-pink {
     background-color: $btn-pink-bg;
     border-color: $btn-pink-border;
@@ -239,6 +270,28 @@ body {
     }
   }
 
+  &.theme-blue {
+    background-color: $btn-blue-bg;
+    border-color: $btn-blue-border;
+    a {
+      color: $btn-blue-color;
+      &:hover {
+        background-color: darken($btn-blue-bg, 10%);
+      }
+    }
+  }
+
+  &.theme-sky {
+    background-color: $btn-sky-bg;
+    border-color: $btn-sky-border;
+    a {
+      color: $btn-sky-color;
+      &:hover {
+        background-color: darken($btn-sky-bg, 10%);
+      }
+    }
+  }
+
   &.theme-green {
     background-color: $btn-green-bg;
     border-color: $btn-green-border;
@@ -246,6 +299,28 @@ body {
       color: $btn-green-color;
       &:hover {
         background-color: darken($btn-green-bg, 10%);
+      }
+    }
+  }
+
+  &.theme-purple {
+    background-color: $btn-purple-bg;
+    border-color: $btn-purple-border;
+    a {
+      color: $btn-purple-color;
+      &:hover {
+        background-color: darken($btn-purple-bg, 10%);
+      }
+    }
+  }
+
+  &.theme-yellow {
+    background-color: $btn-yellow-bg;
+    border-color: $btn-yellow-border;
+    a {
+      color: $btn-yellow-color;
+      &:hover {
+        background-color: darken($btn-yellow-bg, 10%);
       }
     }
   }
@@ -318,4 +393,9 @@ body {
 .help-content {
   display: none;
   margin-bottom: 0;
+}
+
+.theme-btn {
+  width: 36px;
+  height: 36px;
 }
