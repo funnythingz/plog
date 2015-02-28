@@ -7,9 +7,9 @@
         .col-sm-8.col-sm-offset-2
           {{if .Error}}
             ul.error.list-unstyled.alert.alert-danger
-              {{range .Error}}
+              {{range $err := .Error}}
                 li
-                  | {{.}}
+                  | {{$err}}
               {{end}}
           {{end}}
       .row.text-left
@@ -68,22 +68,11 @@
                   label for="entry-theme"
                     | Theme
               .btn-group#select-themes data-toggle="buttons"
-                label.btn.btn-white.theme-btn
-                  input#option1 autocomplete="off" checked="checked" name="entry[theme]" type="radio" value="white"
-                label.btn.btn-black.theme-btn
-                  input#option2 autocomplete="off" name="entry[theme]" type="radio" value="black"
-                label.btn.btn-pink.theme-btn
-                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="pink"
-                label.btn.btn-blue.theme-btn
-                  input#option4 autocomplete="off" name="entry[theme]" type="radio" value="blue"
-                label.btn.btn-sky.theme-btn
-                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="sky"
-                label.btn.btn-green.theme-btn
-                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="green"
-                label.btn.btn-purple.theme-btn
-                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="purple"
-                label.btn.btn-yellow.theme-btn
-                  input#option3 autocomplete="off" name="entry[theme]" type="radio" value="yellow"
+                {{$theme := .Theme}}
+                {{range $color := .Colors}}
+                  label.btn.theme-btn class="btn-{{$color}}{{if eq $color $theme}} active{{end}}"
+                    input#option1 autocomplete="off" name="entry[theme]" type="radio" value="{{$color}}" checked={{if eq $color $theme}}checked{{end}}
+                {{end}}
             .form-group.form-group-lg
               input.btn.btn-block.btn-lg.btn-primary.create#create type="submit" value="Create!"
 

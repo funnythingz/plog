@@ -162,15 +162,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 var Colors []string = []string{"white", "black", "pink", "blue", "sky", "green", "purple", "yellow"}
 
-func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
-
-	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-	err := tpl.Execute(w, nil)
-
-	helper.InternalServerErrorCheck(err, w)
-}
-
-type FormResultData struct {
+type NewViewModel struct {
 	Entry  model.Entry
 	Error  []string
 	Theme  string
@@ -178,6 +170,12 @@ type FormResultData struct {
 	Colors []string
 }
 
+func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+	err := tpl.Execute(w, NewViewModel{Colors: Colors, Theme: "white"})
+
+	helper.InternalServerErrorCheck(err, w)
+}
 func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
@@ -196,27 +194,29 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 		pp.Println(err.Error())
 	}
 
-	Error := []string{}
+	errors := []string{}
 
 	// Validation
 	if utf8.RuneCountInString(title) <= 0 {
-		Error = append(Error, "input Title must be blank.")
+		errors = append(errors, "input Title must be blank.")
 	}
 	if utf8.RuneCountInString(title) > 50 {
-		Error = append(Error, "input Title maximum is 50 character.")
+		errors = append(errors, "input Title maximum is 50 character.")
 	}
 	if utf8.RuneCountInString(content) <= 0 {
-		Error = append(Error, "input Content must be blank.")
+		errors = append(errors, "input Content must be blank.")
 	}
 	if utf8.RuneCountInString(content) < 5 || utf8.RuneCountInString(content) > 1000 {
-		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
+		errors = append(errors, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 
-	if len(Error) > 0 {
+	newViewModel := NewViewModel{Entry: Entry, Error: errors, Theme: theme, MetaOg: MetaOg{}, Colors: Colors}
+
+	if len(errors) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-		err := tpl.Execute(w, FormResultData{Entry, Error, "white", MetaOg{}, Colors})
+		err := tpl.Execute(w, newViewModel)
 		pp.Println(err)
-		pp.Println(Error)
+		pp.Println(errors)
 		return
 	}
 
