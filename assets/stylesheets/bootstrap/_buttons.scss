@@ -113,6 +113,10 @@
   @include button-variant($btn-yellow-color, $btn-yellow-bg, $btn-yellow-border);
 }
 
+.btn-lime {
+  @include button-variant($btn-lime-color, $btn-lime-bg, $btn-lime-border);
+}
+
 
 // Link buttons
 // -------------------------

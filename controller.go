@@ -160,7 +160,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	helper.InternalServerErrorCheck(err, w)
 }
 
-var Colors []string = []string{"white", "black", "pink", "blue", "sky", "green", "purple", "yellow"}
+var Colors []string = []string{"white", "black", "pink", "blue", "sky", "green", "purple", "yellow", "lime"}
 
 type NewViewModel struct {
 	Entry  model.Entry
