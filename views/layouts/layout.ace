@@ -24,7 +24,7 @@ html
     {{if .MetaOg.Image}}
       meta property="og:image" content="{{.MetaOg.Image}}"
     {{else}}
-      meta property="og:image" content="/assets/images/plog.png?0"
+      meta property="og:image" content="http://plog.link/assets/images/plog.png?0"
     {{end}}
     {{if .MetaOg.Description}}
       meta property="og:description" content="{{.MetaOg.Description}}"
