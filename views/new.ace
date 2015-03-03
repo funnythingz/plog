@@ -71,7 +71,11 @@
                 {{$theme := .Theme}}
                 {{range $color := .Colors}}
                   label.btn.theme-btn class="btn-{{$color}}{{if eq $color $theme}} active{{end}}"
-                    input#option1 autocomplete="off" name="entry[theme]" type="radio" value="{{$color}}" checked={{if eq $color $theme}}checked{{end}}
+                    {{if eq $color $theme}}
+                      input#option1 autocomplete="off" name="entry[theme]" type="radio" value="{{$color}}" checked="checked"
+                    {{else}}
+                      input#option1 autocomplete="off" name="entry[theme]" type="radio" value="{{$color}}"
+                    {{end}}
                 {{end}}
             .form-group.form-group-lg
               input.btn.btn-block.btn-lg.btn-primary.create#create type="submit" value="Create!"
