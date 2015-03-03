@@ -45,7 +45,7 @@ https://github.com/funnythingz
 
 * plogについて
 
-.image http://plog.link/assets/images/logo.png
+.image http://plog.link/assets/images/plog.png
 
 - 匿名ダイアリー
 - ログイン不要
@@ -244,4 +244,4 @@ buildしたあとにFastCGI化したplogをリロードする
 
 *https://github.com/funnythingz/plog*
 
-starお待ちしております…！
+starとかプルリクとかお待ちしております…！
