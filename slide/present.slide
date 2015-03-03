@@ -150,7 +150,7 @@ model
 
 *Sanitizer* - github.com/microcosm-cc/bluemonday
 
-.code ../controller.go 134,135
+.code ../controller.go 160,161
 
 * Truncate - github.com/funnythingz/sunnyday
 
@@ -174,13 +174,13 @@ view
 
 load
 
-.code ../controller.go 149,161
+.code ../controller.go 175,187
 
-.code ../controller.go 163,168
+.code ../controller.go 200,205
 
 * validation
 
-.code ../controller.go 195,217
+.code ../controller.go 227,248
 
 * test - testing
 
@@ -209,10 +209,9 @@ buildしたあとにFastCGI化したplogをリロードする
 
   % git pull
   % train
+  % gom install
   % gom build
   % sudo /etc/init.d/supervisor restart
-
-*train* ... assets:precompileみたいなもの
 
 * 所感
 
