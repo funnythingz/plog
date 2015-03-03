@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/funnythingz/sunnyday"
+	"github.com/garyburd/redigo/redis"
 	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -120,6 +121,31 @@ type EntryViewModel struct {
 	HtmlContent string
 	Theme       string
 	MetaOg      MetaOg
+	PageView    string
+}
+
+func pageView(id string) string {
+	conn, err := redis.Dial("tcp", ":6379")
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	key := "entry_" + id
+
+	count := 0
+	c, err := redis.String(conn.Do("GET", key))
+	if err != nil {
+		pp.Println("key not found")
+	} else {
+		count, _ = strconv.Atoi(c)
+	}
+
+	count = count + 1
+	conn.Do("SET", key, count)
+	resultCount, _ := redis.String(conn.Do("GET", key))
+
+	return resultCount
 }
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -152,6 +178,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 		HtmlContent: htmlContent,
 		Theme:       entry.Theme,
 		MetaOg:      meta,
+		PageView:    pageView(c.URLParams["id"]),
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
