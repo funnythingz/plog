@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/funnythingz/sunnyday"
+	"github.com/garyburd/redigo/redis"
 	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -58,7 +59,7 @@ var AssetsMap = template.FuncMap{
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
-	permit := 30
+	permit := 60
 
 	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)
 
@@ -123,6 +124,31 @@ type EntryViewModel struct {
 	HtmlContent string
 	Theme       string
 	MetaOg      MetaOg
+	PageView    string
+}
+
+func pageView(id string) string {
+	conn, err := redis.Dial("tcp", ":6379")
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	key := "entry_" + id
+
+	count := 0
+	c, err := redis.String(conn.Do("GET", key))
+	if err != nil {
+		pp.Println("key not found")
+	} else {
+		count, _ = strconv.Atoi(c)
+	}
+
+	count = count + 1
+	conn.Do("SET", key, count)
+	resultCount, _ := redis.String(conn.Do("GET", key))
+
+	return resultCount
 }
 
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -158,6 +184,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 		HtmlContent: htmlContent,
 		Theme:       entry.Theme,
 		MetaOg:      meta,
+		PageView:    pageView(c.URLParams["id"]),
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
@@ -166,20 +193,22 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	helper.InternalServerErrorCheck(err, w)
 }
 
-func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-	err := tpl.Execute(w, nil)
+var Colors []string = []string{"white", "black", "pink", "blue", "sky", "green", "purple", "yellow", "lime"}
 
-	helper.InternalServerErrorCheck(err, w)
-}
-
-type FormResultData struct {
+type NewViewModel struct {
 	Entry  model.Entry
 	Error  []string
 	Theme  string
 	MetaOg MetaOg
+	Colors []string
 }
 
+func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+	err := tpl.Execute(w, NewViewModel{Colors: Colors, Theme: "white"})
+
+	helper.InternalServerErrorCheck(err, w)
+}
 func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
@@ -198,27 +227,29 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 		pp.Println(err.Error())
 	}
 
-	Error := []string{}
+	errors := []string{}
 
 	// Validation
 	if utf8.RuneCountInString(title) <= 0 {
-		Error = append(Error, "input Title must be blank.")
+		errors = append(errors, "input Title must be blank.")
 	}
 	if utf8.RuneCountInString(title) > 50 {
-		Error = append(Error, "input Title maximum is 50 character.")
+		errors = append(errors, "input Title maximum is 50 character.")
 	}
 	if utf8.RuneCountInString(content) <= 0 {
-		Error = append(Error, "input Content must be blank.")
+		errors = append(errors, "input Content must be blank.")
 	}
 	if utf8.RuneCountInString(content) < 5 || utf8.RuneCountInString(content) > 1000 {
-		Error = append(Error, "input Content minimum is 5 and maximum is 1000 character.")
+		errors = append(errors, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 
-	if len(Error) > 0 {
+	newViewModel := NewViewModel{Entry: Entry, Error: errors, Theme: theme, MetaOg: MetaOg{}, Colors: Colors}
+
+	if len(errors) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-		err := tpl.Execute(w, FormResultData{Entry, Error, "white", MetaOg{}})
+		err := tpl.Execute(w, newViewModel)
 		pp.Println(err)
-		pp.Println(Error)
+		pp.Println(errors)
 		return
 	}
 

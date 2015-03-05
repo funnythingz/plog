@@ -3,7 +3,11 @@
     hgroup
       h1
         | {{.Title}}
-      small.date
+      small.meta
+        span.pv
+          | {{.PageView}}
+        |  view
+      small.meta
         | {{.Date}}
     section.content
       | {{HTML .HtmlContent}}

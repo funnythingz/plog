@@ -4,79 +4,13 @@
 @import url(http://fonts.googleapis.com/css?family=Quicksand);
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
 
+@import 'theme-body';
+@import 'theme-entry';
+
 body {
   font-family: 'Montserrat', sans-serif;
   padding-bottom: 70px;
-
-  &.theme-black {
-    color: $btn-black-color;
-    background-color: $btn-black-bg;
-    a {
-      color: darken($btn-black-color, 50%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-black-color, 50%);
-      }
-    }
-  }
-
-  &.theme-white {
-    color: $btn-white-color;
-    background-color: $btn-white-bg;
-    a {
-      color: darken($btn-white-color, 50%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-white-color, 50%);
-      }
-    }
-  }
-
-  &.theme-blue {
-    color: $btn-blue-color;
-    background-color: $btn-blue-bg;
-    a {
-      color: darken($btn-blue-bg, 30%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-blue-bg, 30%);
-      }
-    }
-  }
-
-  &.theme-pink {
-    color: $btn-pink-color;
-    background-color: $btn-pink-bg;
-    a {
-      color: darken($btn-pink-bg, 30%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-pink-bg, 30%);
-      }
-    }
-  }
-
-  &.theme-green {
-    color: $btn-green-color;
-    background-color: $btn-green-bg;
-    a {
-      color: darken($btn-green-bg, 30%);
-    }
-
-    .entry {
-      .date {
-        color: darken($btn-green-bg, 30%);
-      }
-    }
-  }
+  background-color: #f7f8f9;
 }
 
 .hero {
@@ -100,7 +34,7 @@ body {
     .p {color: $brand-blue}
     .l {color: $brand-green}
     .o {color: $brand-pink}
-    .g {color: $brand-black}
+    .g {color: $brand-purple}
 
     &:hover {
       text-decoration: none;
@@ -148,11 +82,15 @@ body {
       margin: 0 0 10px;
     }
 
-    .date {
+    .meta {
       display: block;
       margin-left: 1em;
       font-size: 14px;
       text-align: right;
+    }
+
+    .pv {
+      font-size: 18px;
     }
   }
 
@@ -193,61 +131,6 @@ body {
     text-align: center;
     transition: all .3s ease-in-out;
   }
-
-  &.theme-black {
-    background-color: $btn-black-bg;
-    border-color: $btn-black-border;
-    a {
-      color: $btn-black-color;
-      &:hover {
-        background-color: darken($btn-black-bg, 10%);
-      }
-    }
-  }
-
-  &.theme-white {
-    background-color: $btn-white-bg;
-    border-color: $btn-white-border;
-    a {
-      color: $btn-white-color;
-      &:hover {
-        background-color: darken($btn-white-bg, 10%);
-      }
-    }
-  }
-
-  &.theme-blue {
-    background-color: $btn-blue-bg;
-    border-color: $btn-blue-border;
-    a {
-      color: $btn-blue-color;
-      &:hover {
-        background-color: darken($btn-blue-bg, 10%);
-      }
-    }
-  }
-
-  &.theme-pink {
-    background-color: $btn-pink-bg;
-    border-color: $btn-pink-border;
-    a {
-      color: $btn-pink-color;
-      &:hover {
-        background-color: darken($btn-pink-bg, 10%);
-      }
-    }
-  }
-
-  &.theme-green {
-    background-color: $btn-green-bg;
-    border-color: $btn-green-border;
-    a {
-      color: $btn-green-color;
-      &:hover {
-        background-color: darken($btn-green-bg, 10%);
-      }
-    }
-  }
 }
 
 .create-form {
@@ -273,10 +156,11 @@ body {
   margin: 0 auto;
   width: 48px;
   height: 48px;
-  background: rgba(255, 255, 255, 0.5) url("/assets/images/logo.png") no-repeat center center;
+  background: #f7f8f9 url("/assets/images/plog.png?0") no-repeat center center;
   background-size: 28px 28px;
   border: solid 1px #e1e2e3;
   border-radius: 50%;
+  opacity: 0.8;
 }
 
 .hide {
@@ -323,4 +207,9 @@ body {
   ul li {
     vertical-align: top;
   }
+}
+
+.theme-btn {
+  width: 36px;
+  height: 36px;
 }

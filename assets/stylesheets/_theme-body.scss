@@ -1,0 +1,127 @@
+body {
+  &.theme-black {
+    color: $btn-black-color;
+    background-color: $btn-black-bg;
+    a {
+      color: darken($btn-black-color, 50%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-black-color, 50%);
+      }
+    }
+  }
+
+  &.theme-white {
+    color: $btn-white-color;
+    background-color: $btn-white-bg;
+    a {
+      color: darken($btn-white-color, 50%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-white-color, 50%);
+      }
+    }
+  }
+
+  &.theme-pink {
+    color: $btn-pink-color;
+    background-color: $btn-pink-bg;
+    a {
+      color: darken($btn-pink-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-pink-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-blue {
+    color: $btn-blue-color;
+    background-color: $btn-blue-bg;
+    a {
+      color: darken($btn-blue-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-blue-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-sky {
+    color: $btn-sky-color;
+    background-color: $btn-sky-bg;
+    a {
+      color: darken($btn-sky-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-sky-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-green {
+    color: $btn-green-color;
+    background-color: $btn-green-bg;
+    a {
+      color: darken($btn-green-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-green-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-purple {
+    color: $btn-purple-color;
+    background-color: $btn-purple-bg;
+    a {
+      color: darken($btn-purple-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-purple-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-yellow {
+    color: $btn-yellow-color;
+    background-color: $btn-yellow-bg;
+    a {
+      color: darken($btn-yellow-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-yellow-bg, 30%);
+      }
+    }
+  }
+
+  &.theme-lime {
+    color: $btn-lime-color;
+    background-color: $btn-lime-bg;
+    a {
+      color: darken($btn-lime-bg, 30%);
+    }
+
+    .entry {
+      .meta {
+        color: darken($btn-lime-bg, 30%);
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-GoでWebサービスをつくってみた
+GoでplogというWebサービスを開発してリリースしてみた
 26 Feb 2015
 Tags: go golang
 
@@ -12,6 +12,8 @@ https://github.com/funnythingz
 
 .image https://avatars0.githubusercontent.com/u/255213?v=3&amp;s=240
 
+エンジニア at nanapi
+
 - GitHub
 - Ruby on Rails
 - TypeScript
@@ -22,14 +24,18 @@ https://github.com/funnythingz
 - なぜGoなのか
 - つくったサービスの紹介
 - こんなGoパッケージを使ったよ！
+- サーバー構成とか
 - 所感
 
 * なぜGoなのか
 
 * なぜGoなのか
 
-流行ってる！モテる！
-過度に尖っていく他言語にちょっと疲れた
+- 流行ってる！モテる気がする！
+- ゆるく書けるけど堅いとこは型い
+- Goを実践導入しているところはまだ少ないので実践導入してみたらどうなるか試したかった
+
+.image http://nathany.com/assets/images/gopher-swing.jpg _ 900
 
 * つくったサービスの紹介
 
@@ -39,21 +45,44 @@ https://github.com/funnythingz
 
 * plogについて
 
+.image http://plog.link/assets/images/plog.png
+
 - 匿名ダイアリー
-- ソーシャル疲れからの解放
 - ログイン不要
 - だれでも投稿できる
 - マークダウンつかえる
 - ゆるふわ
-- pplogとは関係ない (plogをつくった時はpplogの存在自体知らなかった)
+- ソーシャル疲れからの解放
 
 * こんなGoパッケージを使ったよ！
 
-* Goのエコシステムを活用する
+* ディレクトリ構造
 
-Goに入ったらGoに従えの気持ちでつくってみた
-
-それでは実際のコードみてみましょう(・ω<)
+  ├── Gomfile
+  ├── app.go
+  ├── assets
+  │   ├── images
+  │   ├── javascripts
+  │   └── stylesheets
+  ├── controller.go
+  ├── database.yml
+  ├── db
+  │   └── dbmap.go
+  ├── entry_test.go
+  ├── helper
+  │   └── helper.go
+  ├── migrate
+  │   ├── migration.go
+  │   └── migration_t.go
+  ├── models
+  │   └── entry.go
+  └── views
+      ├── 404.ace
+      ├── layouts
+      │   └── layout.ace
+      ├── new.ace
+      ├── top.ace
+      └── view.ace
 
 * Go Manager - github.com/mattn/gom
 
@@ -80,7 +109,7 @@ Goに入ったらGoに従えの気持ちでつくってみた
 
 .code ../app.go 13
 
-.code ../controller.go 48,50
+.code ../controller.go 49,51
 
   % train
   -> clean bundled assets
@@ -93,7 +122,13 @@ Goに入ったらGoに従えの気持ちでつくってみた
 
 * ORMapper - github.com/jinzhu/gorm
 
-init
+config
+
+.code ../database.yml.sample
+
+* ORMapper - github.com/jinzhu/gorm
+
+open
 
 .code ../db/dbmap.go 13,31
 
@@ -115,19 +150,19 @@ model
 
 *Sanitizer* - github.com/microcosm-cc/bluemonday
 
-.code ../controller.go 134,135
+.code ../controller.go 160,161
 
 * Truncate - github.com/funnythingz/sunnyday
 
-.code ../controller.go 48,53
+.code ../controller.go 49,55
 
-.code ../views/top.ace 13,20
+.code ../views/top.ace 23,28
 
 * template - github.com/yosssi/ace
 
 layout
 
-.code ../views/layouts/layout.ace
+.code ../views/layouts/layout.ace 33,52
 
 * template - github.com/yosssi/ace
 
@@ -139,11 +174,13 @@ view
 
 load
 
-.code ../controller.go 149,160
+.code ../controller.go 175,187
+
+.code ../controller.go 200,205
 
 * validation
 
-.code ../controller.go 195,217
+.code ../controller.go 227,248
 
 * test - testing
 
@@ -156,25 +193,54 @@ load
   % gom exec gin
   [gin] listening on port 3000
 
+* サーバー構成とか
+
+* サーバー構成とか
+
+さくらVPS 512 SSD CentOS6
+
+Nginx + FastCGI + Supervisor
+
+FastCGI化したGoアプリをSupervisorでデーモン化して動かしている
+
+*デプロイとか*
+
+buildしたあとにFastCGI化したplogをリロードする
+
+  % git pull
+  % train
+  % gom install
+  % gom build
+  % sudo /etc/init.d/supervisor restart
+
 * 所感
 
-* こんなところがステキ
+* 開発してみてよかったこと
 
-- イケイケな尖った感じの言語じゃないのでマッタリ書けて良い
-- Goの標準パッケージで基本的なことはだいたいできる
-- パッケージがGitHubで公開されているので簡単に使える
-- 公開するのも簡単
-- 今回はWebサービスをつくったが、WebサーバーやdaemonもつくれるのですべてGoでできちゃう
+- マッタリ書けるので純粋にプログラミングが楽しかった
+- パッケージがGitHubで公開されているので簡単に導入できる
+- build速いのとginのおかげでスクリプト言語のような感覚で開発できた
+- なによりパフォーマンスが高いと思う
+- vimとGoの相性が抜群
 
-* こんなところがつらい
+* つらかったところ、ハマったところ
 
 - まだまだGoのパッケージが充実しているとは言えないので自分でいろいろつくらなきゃいけない
 - 良くも悪くもシンプル
-- Railsのようなフルスタックなものはまだない (っぽいものはあるがすでにメンテされていない)
-- Goでつくったものを気軽に公開できる安価なサーバーが少ない
+- Railsのようなフルスタックではないので自分でベースもつくらなきゃいけない
+- ノウハウや情報がぜんぜん少ないのでハマるとつらい
+- Daemon化のベストプラクティスがわからなくてハマった
+
+とはいえGoたのしいよ！
 
 * さいごに
 
-*純粋にプログラミングが楽しめるのがGoの良いところだと思うよ！*
+* 純粋にプログラミングが楽しめるのがGoの良いところだと思うよ！
 
-.image ./space_gopher.jpg
+.image ./space_gopher.jpg _ 900
+
+* ソース公開しちゃってます
+
+*https://github.com/funnythingz/plog*
+
+starとかプルリクとかお待ちしております…！

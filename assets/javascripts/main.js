@@ -2,7 +2,6 @@
 //= require javascripts/bootstrap.min
 
 $(function() {
-  $('body').addClass('theme-' + $('#select-themes input').val());
   $('#select-themes label').on('click', function() {
     $('body').removeClass().addClass('theme-' + $('input', this).val());
   });

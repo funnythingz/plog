@@ -24,13 +24,14 @@ html
     {{if .MetaOg.Image}}
       meta property="og:image" content="{{.MetaOg.Image}}"
     {{else}}
-      meta property="og:image" content="/assets/images/logo.png"
+      meta property="og:image" content="http://plog.link/assets/images/plog.png?0"
     {{end}}
     {{if .MetaOg.Description}}
       meta property="og:description" content="{{.MetaOg.Description}}"
     {{end}}
 
-    link rel="apple-touch-icon-precomposed" href="/assets/images/logo.png"
+    link rel="shortcut icon" type="image/x-icon" href="/assets/images/plog.ico?0"
+    link rel="apple-touch-icon-precomposed" href="/assets/images/plog.png?0"
 
     link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
     {{stylesheet_tag "main"}}
