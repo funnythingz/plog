@@ -254,9 +254,3 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	url := fmt.Sprintf("/%d", Entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
-
-func NotFound(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusNotFound)
-	tpl, _ := ace.Load("views/layouts/layout", "views/404", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
-	tpl.Execute(w, nil)
-}
