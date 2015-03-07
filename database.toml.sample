@@ -1,0 +1,15 @@
+[Connection]
+adapter  = "mysql"
+encoding = "utf8"
+username = "username"
+password = "password"
+
+[Databases]
+  [Databases.development]
+  database = "plog_development"
+
+  [Databases.test]
+  database = "plog_test"
+
+  [Databases.production]
+  database = "plog"

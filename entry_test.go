@@ -31,7 +31,7 @@ func TestCreateEntryModel(t *testing.T) {
 		Theme:   "blue",
 	}
 
-	db.DbTestConnect()
+	db.DbConnect("test")
 	db.Dbmap.NewRecord(createEntry)
 	db.Dbmap.Create(&createEntry)
 
@@ -44,7 +44,7 @@ func TestCreateEntryModel(t *testing.T) {
 }
 
 func TestEntryGenerateHtmlFromMarkdown(t *testing.T) {
-	db.DbTestConnect()
+	db.DbConnect("test")
 
 	var entry model.Entry
 	db.Dbmap.Last(&entry)

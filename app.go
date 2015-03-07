@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	db.DbDevelopmentConnect()
+	db.DbConnect("development")
 	train.ConfigureHttpHandler(nil)
 
 	goji.Get("/", top)

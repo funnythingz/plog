@@ -1,13 +1,11 @@
 package db
 
 import (
-	"../helper"
+	"github.com/BurntSushi/toml"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	_ "log"
-	_ "reflect"
+	_ "github.com/k0kubun/pp"
+	"log"
 )
 
 var Dbmap gorm.DB
@@ -30,32 +28,39 @@ func DbOpen(
 	Dbmap.SingularTable(true)
 }
 
-func DbConfig() map[interface{}]interface{} {
-	m := make(map[interface{}]interface{})
-	config, _ := ioutil.ReadFile("database.yml")
-	err := yaml.Unmarshal([]byte(config), &m)
-	helper.Check(err)
-	return m
+type env struct {
+	Database string
 }
 
-func DbDevelopmentConnect() {
-	config := DbConfig()["development"].(map[interface{}]interface{})
-	DbOpen(
-		config["adapter"].(string),
-		config["username"].(string),
-		config["password"].(string),
-		config["database"].(string),
-		config["encoding"].(string),
-	)
+type connection struct {
+	Adapter  string
+	Encoding string
+	Username string
+	Password string
 }
 
-func DbTestConnect() {
-	config := DbConfig()["test"].(map[interface{}]interface{})
+type Config struct {
+	Connection connection
+	Databases  map[string]env
+}
+
+func DbConfig() Config {
+	var config Config
+	if _, err := toml.DecodeFile("database.toml", &config); err != nil {
+		log.Println(err)
+	}
+
+	return config
+}
+
+func DbConnect(env string) {
+	config := DbConfig()
+
 	DbOpen(
-		config["adapter"].(string),
-		config["username"].(string),
-		config["password"].(string),
-		config["database"].(string),
-		config["encoding"].(string),
+		config.Connection.Adapter,
+		config.Connection.Username,
+		config.Connection.Password,
+		config.Databases[env].Database,
+		config.Connection.Encoding,
 	)
 }

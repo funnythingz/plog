@@ -28,6 +28,7 @@ _testmain.go
 tmp
 gin-bin
 database.yml
+database.toml
 _vendor
 .sass-cache/
 public/**/*.scss
