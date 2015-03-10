@@ -11,3 +11,22 @@
         | {{.Date}}
     section.content
       | {{HTML .HtmlContent}}
+  section.action
+    .text-center
+      button.btn.btn-primary data-target="#action" data-toggle="modal" type="button"
+        | action
+    .modal.fade id="action" tabindex="-1" role="dialog"
+      .modal-dialog
+        .modal-content
+          form method="post" action="/:id/comment"
+            .modal-header
+              button.close aria-label="Close" data-dismiss="modal" type="button"
+                span aria-hidden="true"  &times;
+              h4.modal-title
+                | Do you?
+            .modal-body
+              label for="entry-content"
+                | Content
+              textarea.form-control name="entry[content]" id="entry-content" rows="4"
+            .modal-footer
+              input.btn.btn-primary#add-comment type="submit" value="add comment"
