@@ -5,7 +5,7 @@
         | {{.Title}}
       small.meta
         span.pv
-          | {{.PageView}}
+          | {{.Pv}}
         |  view
       small.meta
         | {{.Date}}
@@ -18,15 +18,21 @@
     .modal.fade id="action" tabindex="-1" role="dialog"
       .modal-dialog
         .modal-content
-          form method="post" action="/:id/comment"
+          form method="post" action="/{{.Id}}/comment"
             .modal-header
               button.close aria-label="Close" data-dismiss="modal" type="button"
                 span aria-hidden="true"  &times;
               h4.modal-title
                 | Do you?
             .modal-body
-              label for="entry-content"
-                | Content
-              textarea.form-control name="entry[content]" id="entry-content" rows="4"
+              label for="comment-content"
+                | Comment
+              textarea.form-control name="comment[content]" id="comment-content" rows="4"
             .modal-footer
               input.btn.btn-primary#add-comment type="submit" value="add comment"
+  section.comments
+    ul
+      {{range $comment := .Comments}}
+        li
+          | {{$comment.Content}}
+      {{end}}

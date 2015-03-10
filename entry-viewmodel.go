@@ -18,15 +18,17 @@ import (
 )
 
 type EntryViewModel struct {
+	Id          int
 	Title       string
 	Date        string
 	HtmlContent string
 	Theme       string
 	MetaOg      MetaOg
-	PageView    string
+	Pv          string
+	Comments    []model.Comment
 }
 
-func pageView(id string) string {
+func pv(id string) string {
 	conn, err := redis.Dial("tcp", ":6379")
 	if err != nil {
 		panic(err)
@@ -53,6 +55,7 @@ func pageView(id string) string {
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
+	pp.Println(entry)
 
 	if entryNotFound {
 		NotFound(w, r)
@@ -63,24 +66,25 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
 	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
-	meta := MetaOg{
-		Title: entry.Title,
-		Type:  "article",
-		//TODO: Url: entry.Id,
-		//TODO: Image:  "",
-		Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
-	}
 
 	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 	entryCreatedAtJST := entry.CreatedAt.In(jst)
 
 	entryViewModel := EntryViewModel{
+		Id:          entry.Id,
 		Title:       entry.Title,
 		Date:        entryCreatedAtJST.Format(time.ANSIC),
 		HtmlContent: htmlContent,
 		Theme:       entry.Theme,
-		MetaOg:      meta,
-		PageView:    pageView(c.URLParams["id"]),
+		MetaOg: MetaOg{
+			Title: entry.Title,
+			Type:  "article",
+			//TODO: Url: entry.Id,
+			//TODO: Image:  "",
+			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
+		},
+		Pv:       pv(c.URLParams["id"]),
+		Comments: entry.Comments,
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
