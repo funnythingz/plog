@@ -34,5 +34,5 @@
     ul
       {{range $comment := .Comments}}
         li
-          | {{$comment.Content}}
+          | {{sanitize $comment.Content}}
       {{end}}
