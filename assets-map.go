@@ -7,7 +7,7 @@ import (
 	"html/template"
 )
 
-var AssetsMap = template.FuncMap{
+var ViewHelper = template.FuncMap{
 	"javascript_tag": train.JavascriptTag,
 	"stylesheet_tag": train.StylesheetTag,
 	"truncate": func(s string, c int) string {

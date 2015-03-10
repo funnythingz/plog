@@ -87,7 +87,7 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 		Comments: entry.Comments,
 	}
 
-	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, entryViewModel); err != nil {
 		helper.InternalServerErrorCheck(err, w)
 	}
