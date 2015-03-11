@@ -3,6 +3,7 @@ package main
 import (
 	"./helper"
 	"./models"
+	"fmt"
 	"github.com/funnythingz/sunnyday"
 	"github.com/garyburd/redigo/redis"
 	"github.com/k0kubun/pp"
@@ -33,7 +34,7 @@ func pv(id string) string {
 	}
 	defer conn.Close()
 
-	key := "entry_" + id
+	key := fmt.Sprintf("entry_%s", id)
 
 	count := 0
 	c, err := redis.String(conn.Do("GET", key))
@@ -63,7 +64,7 @@ func StoreEntryViewModel(entry model.Entry) EntryViewModel {
 		Entry:       entry,
 		Date:        entryCreatedAtJST.Format(time.ANSIC),
 		HtmlContent: htmlContent,
-		Pv:          pv(string(entry.Id)),
+		Pv:          pv(fmt.Sprintf("%d", entry.Id)),
 		MetaOg: MetaOg{
 			Title: entry.Title,
 			Type:  "article",
