@@ -17,7 +17,7 @@ type NewViewModel struct {
 }
 
 func newEntry(c web.C, w http.ResponseWriter, r *http.Request) {
-	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, NewViewModel{Colors: Colors, Theme: "white"}); err != nil {
 		helper.InternalServerErrorCheck(err, w)
 	}

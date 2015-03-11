@@ -49,7 +49,7 @@ func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
 	newViewModel := NewViewModel{Entry: Entry, Error: errors, Theme: theme, MetaOg: MetaOg{}, Colors: Colors}
 
 	if len(errors) > 0 {
-		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 		err := tpl.Execute(w, newViewModel)
 		pp.Println(err)
 		pp.Println(errors)

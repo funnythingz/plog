@@ -7,9 +7,9 @@ import (
 )
 
 func main() {
-	db.DbDevelopmentConnect()
-	reset()
-	create()
+	db.DbConnect("development")
+	//reset()
+	//create()
 	migrate()
 }
 
@@ -22,5 +22,5 @@ func create() {
 }
 
 func migrate() {
-	log.Println(db.Dbmap.AutoMigrate(&model.Entry{}))
+	log.Println(db.Dbmap.AutoMigrate(&model.Entry{}, &model.Comment{}))
 }

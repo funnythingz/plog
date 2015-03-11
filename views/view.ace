@@ -2,12 +2,45 @@
   article.entry
     hgroup
       h1
-        | {{.Title}}
+        | {{.Entry.Title}}
       small.meta
         span.pv
-          | {{.PageView}}
+          | {{.Pv}}
         |  view
       small.meta
         | {{.Date}}
     section.content
       | {{HTML .HtmlContent}}
+  section.action
+    .text-center
+      button.btn.btn-primary data-target="#action" data-toggle="modal" type="button"
+        | action
+    .modal.fade id="action" tabindex="-1" role="dialog"
+      .modal-dialog
+        .modal-content
+          form method="post" action="/{{.Entry.Id}}/comment"
+            .modal-header
+              button.close aria-label="Close" data-dismiss="modal" type="button"
+                span aria-hidden="true"  &times;
+              h4.modal-title
+                | Do you?
+            .modal-body
+              label for="comment-content"
+                | Comment
+              textarea.form-control name="comment[content]" id="comment-content" rows="4"
+            .modal-footer
+              input.btn.btn-primary#add-comment type="submit" value="add comment"
+  section.comments
+    {{if .Flash}}
+      ul.list-unstyled.text-center
+        {{range $error := .Flash}}
+          li.text-danger
+            | Error: {{$error}}
+        {{end}}
+    {{end}}
+    ul.comment-list
+      {{range $comment := .Entry.Comments}}
+        li
+          i.fa.fa-comment
+          | {{sanitize $comment.Content}}
+      {{end}}

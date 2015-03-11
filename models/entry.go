@@ -3,7 +3,6 @@ package model
 import (
 	"../db"
 	_ "github.com/k0kubun/pp"
-	_ "log"
 	"time"
 )
 
@@ -14,6 +13,8 @@ type Entry struct {
 	Theme     string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+
+	Comments []Comment
 }
 
 func FindEntriesIndex(permit int, page int) ([]Entry, []Entry) {
@@ -25,5 +26,12 @@ func FindEntriesIndex(permit int, page int) ([]Entry, []Entry) {
 
 func FindEntry(id string) (Entry, bool) {
 	var entry Entry
-	return entry, db.Dbmap.Find(&entry, id).RecordNotFound()
+	var comments []Comment
+
+	isNotFound := db.Dbmap.Find(&entry, id).RecordNotFound()
+
+	db.Dbmap.Model(&comments).Order("id desc").Model(&entry).Related(&comments)
+	db.Dbmap.Model(&entry).Association("Comments").Append(&comments)
+
+	return entry, isNotFound
 }

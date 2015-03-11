@@ -17,6 +17,7 @@ func main() {
 	goji.Get("/new", newEntry)
 	goji.Get("/entry", http.RedirectHandler("/", 301))
 	goji.Post("/entry", createEntry)
+	goji.Post(regexp.MustCompile(`^/(?P<id>\d+)/comment$`), addComment)
 
 	goji.NotFound(NotFound)
 	goji.Serve()

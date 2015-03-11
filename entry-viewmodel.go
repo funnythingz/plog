@@ -3,6 +3,7 @@ package main
 import (
 	"./helper"
 	"./models"
+	"fmt"
 	"github.com/funnythingz/sunnyday"
 	"github.com/garyburd/redigo/redis"
 	"github.com/k0kubun/pp"
@@ -18,22 +19,22 @@ import (
 )
 
 type EntryViewModel struct {
-	Title       string
+	Entry       model.Entry
 	Date        string
 	HtmlContent string
-	Theme       string
+	Pv          string
 	MetaOg      MetaOg
-	PageView    string
+	Flash       []string
 }
 
-func pageView(id string) string {
+func pv(id string) string {
 	conn, err := redis.Dial("tcp", ":6379")
 	if err != nil {
 		panic(err)
 	}
 	defer conn.Close()
 
-	key := "entry_" + id
+	key := fmt.Sprintf("entry_%s", id)
 
 	count := 0
 	c, err := redis.String(conn.Do("GET", key))
@@ -50,6 +51,30 @@ func pageView(id string) string {
 	return resultCount
 }
 
+func StoreEntryViewModel(entry model.Entry) EntryViewModel {
+	p := bluemonday.UGCPolicy()
+	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
+
+	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
+
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	entryCreatedAtJST := entry.CreatedAt.In(jst)
+
+	return EntryViewModel{
+		Entry:       entry,
+		Date:        entryCreatedAtJST.Format(time.ANSIC),
+		HtmlContent: htmlContent,
+		Pv:          pv(fmt.Sprintf("%d", entry.Id)),
+		MetaOg: MetaOg{
+			Title: entry.Title,
+			Type:  "article",
+			//TODO: Url: entry.Id,
+			//TODO: Image:  "",
+			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
+		},
+	}
+}
+
 func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
@@ -59,31 +84,9 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := bluemonday.UGCPolicy()
-	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
+	entryViewModel := StoreEntryViewModel(entry)
 
-	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
-	meta := MetaOg{
-		Title: entry.Title,
-		Type:  "article",
-		//TODO: Url: entry.Id,
-		//TODO: Image:  "",
-		Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
-	}
-
-	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
-	entryCreatedAtJST := entry.CreatedAt.In(jst)
-
-	entryViewModel := EntryViewModel{
-		Title:       entry.Title,
-		Date:        entryCreatedAtJST.Format(time.ANSIC),
-		HtmlContent: htmlContent,
-		Theme:       entry.Theme,
-		MetaOg:      meta,
-		PageView:    pageView(c.URLParams["id"]),
-	}
-
-	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: AssetsMap})
+	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, entryViewModel); err != nil {
 		helper.InternalServerErrorCheck(err, w)
 	}
