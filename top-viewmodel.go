@@ -13,8 +13,8 @@ import (
 type TopViewModel struct {
 	Entries  []model.Entry
 	Paginate Paginate
-	Theme    string
 	MetaOg   MetaOg
+	Entry    string
 }
 
 func top(c web.C, w http.ResponseWriter, r *http.Request) {
@@ -63,8 +63,8 @@ func top(c web.C, w http.ResponseWriter, r *http.Request) {
 			PrevPage:     page - 1,
 			NextPage:     page + 1,
 		},
-		Theme:  "",
 		MetaOg: meta,
+		Entry:  "",
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})

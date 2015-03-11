@@ -31,6 +31,13 @@
             .modal-footer
               input.btn.btn-primary#add-comment type="submit" value="add comment"
   section.comments
+    {{if .Flash}}
+      ul.list-unstyled.text-center
+        {{range $error := .Flash}}
+          li.text-danger
+            | Error: {{$error}}
+        {{end}}
+    {{end}}
     ul.comment-list
       {{range $comment := .Entry.Comments}}
         li

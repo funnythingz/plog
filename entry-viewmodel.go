@@ -23,6 +23,7 @@ type EntryViewModel struct {
 	HtmlContent string
 	Pv          string
 	MetaOg      MetaOg
+	Flash       []string
 }
 
 func pv(id string) string {
@@ -49,16 +50,7 @@ func pv(id string) string {
 	return resultCount
 }
 
-func entry(c web.C, w http.ResponseWriter, r *http.Request) {
-
-	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
-	pp.Println(entry)
-
-	if entryNotFound {
-		NotFound(w, r)
-		return
-	}
-
+func StoreEntryViewModel(entry model.Entry) EntryViewModel {
 	p := bluemonday.UGCPolicy()
 	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
 
@@ -67,11 +59,11 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
 	entryCreatedAtJST := entry.CreatedAt.In(jst)
 
-	entryViewModel := EntryViewModel{
+	return EntryViewModel{
 		Entry:       entry,
 		Date:        entryCreatedAtJST.Format(time.ANSIC),
 		HtmlContent: htmlContent,
-		Pv:          pv(c.URLParams["id"]),
+		Pv:          pv(string(entry.Id)),
 		MetaOg: MetaOg{
 			Title: entry.Title,
 			Type:  "article",
@@ -80,6 +72,18 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
 		},
 	}
+}
+
+func entry(c web.C, w http.ResponseWriter, r *http.Request) {
+
+	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
+
+	if entryNotFound {
+		NotFound(w, r)
+		return
+	}
+
+	entryViewModel := StoreEntryViewModel(entry)
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, entryViewModel); err != nil {

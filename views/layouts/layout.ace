@@ -37,7 +37,7 @@ html
     {{stylesheet_tag "main"}}
 
     {{javascript_tag "main"}}
-  body class="{{if .Entry.Theme}}theme-{{.Entry.Theme}}{{end}}"
+  body class="{{if .Entry}}theme-{{.Entry.Theme}}{{end}}"
     .container
       = yield main
 
