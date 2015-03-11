@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/funnythingz/sunnyday"
-	"github.com/microcosm-cc/bluemonday"
 	"github.com/shaoshing/train"
 	"html/template"
 )
@@ -14,7 +13,6 @@ var ViewHelper = template.FuncMap{
 		return sunnyday.Truncate(s, c)
 	},
 	"sanitize": func(s string) string {
-		p := bluemonday.UGCPolicy()
-		return p.Sanitize(string(s))
+		return Sanitize(s)
 	},
 }

@@ -13,7 +13,7 @@ import (
 )
 
 func addComment(c web.C, w http.ResponseWriter, r *http.Request) {
-	content := r.FormValue("comment[content]")
+	content := Sanitize(r.FormValue("comment[content]"))
 
 	pp.Println(content)
 

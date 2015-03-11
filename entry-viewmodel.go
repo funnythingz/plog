@@ -18,14 +18,11 @@ import (
 )
 
 type EntryViewModel struct {
-	Id          int
-	Title       string
+	Entry       model.Entry
 	Date        string
 	HtmlContent string
-	Theme       string
-	MetaOg      MetaOg
 	Pv          string
-	Comments    []model.Comment
+	MetaOg      MetaOg
 }
 
 func pv(id string) string {
@@ -71,11 +68,10 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 	entryCreatedAtJST := entry.CreatedAt.In(jst)
 
 	entryViewModel := EntryViewModel{
-		Id:          entry.Id,
-		Title:       entry.Title,
+		Entry:       entry,
 		Date:        entryCreatedAtJST.Format(time.ANSIC),
 		HtmlContent: htmlContent,
-		Theme:       entry.Theme,
+		Pv:          pv(c.URLParams["id"]),
 		MetaOg: MetaOg{
 			Title: entry.Title,
 			Type:  "article",
@@ -83,8 +79,6 @@ func entry(c web.C, w http.ResponseWriter, r *http.Request) {
 			//TODO: Image:  "",
 			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
 		},
-		Pv:       pv(c.URLParams["id"]),
-		Comments: entry.Comments,
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})

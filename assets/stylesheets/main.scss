@@ -207,3 +207,27 @@ body {
   width: 36px;
   height: 36px;
 }
+
+.modal-title {
+  color: $text-color;
+}
+
+.comment-list {
+  li {
+    line-height: 1.5;
+    list-style: none;
+    margin-bottom: .5em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    > .fa-comment {
+      margin-right: .5em;
+    }
+  }
+}
+
+.fa {
+  transform:matrix(-1, 0, 0, 1, 0, 0);
+}

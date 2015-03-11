@@ -2,7 +2,7 @@
   article.entry
     hgroup
       h1
-        | {{.Title}}
+        | {{.Entry.Title}}
       small.meta
         span.pv
           | {{.Pv}}
@@ -18,7 +18,7 @@
     .modal.fade id="action" tabindex="-1" role="dialog"
       .modal-dialog
         .modal-content
-          form method="post" action="/{{.Id}}/comment"
+          form method="post" action="/{{.Entry.Id}}/comment"
             .modal-header
               button.close aria-label="Close" data-dismiss="modal" type="button"
                 span aria-hidden="true"  &times;
@@ -31,8 +31,9 @@
             .modal-footer
               input.btn.btn-primary#add-comment type="submit" value="add comment"
   section.comments
-    ul
-      {{range $comment := .Comments}}
+    ul.comment-list
+      {{range $comment := .Entry.Comments}}
         li
+          i.fa.fa-comment
           | {{sanitize $comment.Content}}
       {{end}}

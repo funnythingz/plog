@@ -10,10 +10,13 @@ $(function() {
     $('#help-content').toggle();
   });
 
-  $('#create').on('click', function(e) {
+  var createConfirm = function(e) {
     if(!confirm('are you ok?')) {
       e.stopPropagation();
       e.preventDefault();
     }
-  });
+  }
+
+  $('#create').on('click', createConfirm);
+  $('#add-comment').on('click', createConfirm);
 });
