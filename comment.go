@@ -45,7 +45,6 @@ func addComment(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(errors) > 0 {
-		// TODO: error
 		entry, entryNotFound := model.FindEntry(c.URLParams["id"])
 
 		if entryNotFound {
