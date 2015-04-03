@@ -12,3 +12,7 @@ gom 'github.com/k0kubun/pp'
 gom 'github.com/funnythingz/sunnyday'
 gom 'github.com/garyburd/redigo/redis'
 gom 'github.com/BurntSushi/toml'
+
+group :development do
+  gom 'github.com/codegangsta/gin'
+end
