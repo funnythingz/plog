@@ -16,6 +16,7 @@ func main() {
 	topController := &TopController{}
 	goji.Get("/", topController.Index)
 
+	// Entry
 	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entry)
 	goji.Get("/new", newEntry)
 	goji.Get("/entry", http.RedirectHandler("/", 301))

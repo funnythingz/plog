@@ -10,13 +10,6 @@ import (
 	"strconv"
 )
 
-type TopViewModel struct {
-	Entries  []model.Entry
-	Paginate Paginate
-	MetaOg   MetaOg
-	Entry    string
-}
-
 type TopController struct{}
 
 func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
