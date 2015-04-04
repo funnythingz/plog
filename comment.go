@@ -52,12 +52,11 @@ func addComment(c web.C, w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		entryViewModel := StoreEntryViewModel(entry)
+		entryViewModel := &EntryViewModel{}
 		entryViewModel.Flash = errors
-		pp.Println(entryViewModel)
 
 		tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
-		if err := tpl.Execute(w, entryViewModel); err != nil {
+		if err := tpl.Execute(w, entryViewModel.Store(entry)); err != nil {
 			helper.InternalServerErrorCheck(err, w)
 		}
 		return

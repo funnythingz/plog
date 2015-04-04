@@ -1,7 +1,6 @@
 package main
 
 import (
-	"./helper"
 	"./models"
 	"fmt"
 	"github.com/funnythingz/sunnyday"
@@ -9,10 +8,6 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
-	"github.com/yosssi/ace"
-	"github.com/zenazn/goji/web"
-	_ "log"
-	"net/http"
 	"regexp"
 	"strconv"
 	"time"
@@ -25,6 +20,30 @@ type EntryViewModel struct {
 	Pv          string
 	MetaOg      MetaOg
 	Flash       []string
+}
+
+func (vm *EntryViewModel) Store(entry model.Entry) EntryViewModel {
+	p := bluemonday.UGCPolicy()
+	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
+
+	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
+
+	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
+	entryCreatedAtJST := entry.CreatedAt.In(jst)
+
+	return EntryViewModel{
+		Entry:       entry,
+		Date:        entryCreatedAtJST.Format(time.ANSIC),
+		HtmlContent: htmlContent,
+		Pv:          pv(fmt.Sprintf("%d", entry.Id)),
+		MetaOg: MetaOg{
+			Title: entry.Title,
+			Type:  "article",
+			//TODO: Url: entry.Id,
+			//TODO: Image:  "",
+			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
+		},
+	}
 }
 
 func pv(id string) string {
@@ -49,46 +68,4 @@ func pv(id string) string {
 	resultCount, _ := redis.String(conn.Do("GET", key))
 
 	return resultCount
-}
-
-func StoreEntryViewModel(entry model.Entry) EntryViewModel {
-	p := bluemonday.UGCPolicy()
-	htmlContent := p.Sanitize(string(blackfriday.MarkdownCommon([]byte(entry.Content))))
-
-	reg := regexp.MustCompile(`([\s]{2,}|\n)`)
-
-	jst := time.FixedZone("Asia/Tokyo", 9*60*60)
-	entryCreatedAtJST := entry.CreatedAt.In(jst)
-
-	return EntryViewModel{
-		Entry:       entry,
-		Date:        entryCreatedAtJST.Format(time.ANSIC),
-		HtmlContent: htmlContent,
-		Pv:          pv(fmt.Sprintf("%d", entry.Id)),
-		MetaOg: MetaOg{
-			Title: entry.Title,
-			Type:  "article",
-			//TODO: Url: entry.Id,
-			//TODO: Image:  "",
-			Description: sunnyday.Truncate(reg.ReplaceAllString(entry.Content, " "), 99),
-		},
-	}
-}
-
-func entry(c web.C, w http.ResponseWriter, r *http.Request) {
-
-	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
-
-	if entryNotFound {
-		NotFound(w, r)
-		return
-	}
-
-	entryViewModel := StoreEntryViewModel(entry)
-
-	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
-	if err := tpl.Execute(w, entryViewModel); err != nil {
-		helper.InternalServerErrorCheck(err, w)
-	}
-
 }

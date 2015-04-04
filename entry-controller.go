@@ -2,17 +2,47 @@ package main
 
 import (
 	"./db"
+	"./helper"
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	"github.com/k0kubun/pp"
+	_ "github.com/k0kubun/pp"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
+	_ "log"
 	"net/http"
 	"unicode/utf8"
 )
 
-func createEntry(c web.C, w http.ResponseWriter, r *http.Request) {
+type EntryController struct{}
+
+func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request) {
+
+	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
+
+	if entryNotFound {
+		NotFound(w, r)
+		return
+	}
+
+	entryViewModel := &EntryViewModel{}
+
+	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
+	if err := tpl.Execute(w, entryViewModel.Store(entry)); err != nil {
+		helper.InternalServerErrorCheck(err, w)
+	}
+
+}
+
+func (_ *EntryController) New(c web.C, w http.ResponseWriter, r *http.Request) {
+	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
+	if err := tpl.Execute(w, NewViewModel{Colors: Colors, Theme: "white"}); err != nil {
+		helper.InternalServerErrorCheck(err, w)
+	}
+}
+
+func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
 	content := r.FormValue("entry[content]")

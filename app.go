@@ -17,10 +17,11 @@ func main() {
 	goji.Get("/", topController.Index)
 
 	// Entry
-	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entry)
-	goji.Get("/new", newEntry)
+	entryController := &EntryController{}
+	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entryController.Entry)
+	goji.Get("/new", entryController.New)
 	goji.Get("/entry", http.RedirectHandler("/", 301))
-	goji.Post("/entry", createEntry)
+	goji.Post("/entry", entryController.Create)
 	goji.Post(regexp.MustCompile(`^/(?P<id>\d+)/comment$`), addComment)
 
 	goji.NotFound(NotFound)
