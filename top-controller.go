@@ -27,7 +27,7 @@ func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	entries, nextEntries := model.FindEntriesIndex(permit, page)
 
 	if len(entries) == 0 && page > 1 {
-		NotFound(w, r)
+		exceptionController.NotFound(w, r)
 		return
 	}
 

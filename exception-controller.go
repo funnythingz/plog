@@ -5,7 +5,9 @@ import (
 	"net/http"
 )
 
-func NotFound(w http.ResponseWriter, r *http.Request) {
+type ExceptionController struct{}
+
+func (e *ExceptionController) NotFound(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	tpl, _ := ace.Load("views/layouts/layout", "views/404", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	tpl.Execute(w, nil)

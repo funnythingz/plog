@@ -12,6 +12,8 @@ import (
 	"github.com/zenazn/goji/web"
 	_ "log"
 	"net/http"
+	"regexp"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -22,7 +24,7 @@ func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request)
 	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
 
 	if entryNotFound {
-		NotFound(w, r)
+		exceptionController.NotFound(w, r)
 		return
 	}
 
@@ -91,5 +93,59 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 	pp.Println("Create: ", Entry)
 
 	url := fmt.Sprintf("/%d", Entry.Id)
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
+}
+
+func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Request) {
+	reg := regexp.MustCompile(`([\s]{2,}|\n|^[\s]+$)`)
+	space_reg := regexp.MustCompile(`^[\s]+$`)
+	content := space_reg.ReplaceAllString(reg.ReplaceAllString(Sanitize(r.FormValue("comment[content]")), " "), "")
+
+	pp.Println(content)
+
+	entryId, _ := strconv.Atoi(c.URLParams["id"])
+	url := fmt.Sprintf("/%d", entryId)
+
+	comment := model.Comment{
+		Content: content,
+		EntryId: entryId,
+	}
+
+	if _, err := govalidator.ValidateStruct(comment); err != nil {
+		pp.Println(err.Error())
+	}
+
+	errors := []string{}
+
+	// Validation
+	if utf8.RuneCountInString(content) <= 0 {
+		errors = append(errors, "input Comment must be blank.")
+	}
+	if utf8.RuneCountInString(content) > 120 {
+		errors = append(errors, "input Comment maximum is 120 character.")
+	}
+
+	if len(errors) > 0 {
+		entry, entryNotFound := model.FindEntry(c.URLParams["id"])
+
+		if entryNotFound {
+			exceptionController.NotFound(w, r)
+			return
+		}
+
+		entryViewModel := &EntryViewModel{}
+		entryViewModel.Flash = errors
+
+		tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
+		if err := tpl.Execute(w, entryViewModel.Store(entry)); err != nil {
+			helper.InternalServerErrorCheck(err, w)
+		}
+		return
+	}
+
+	db.Dbmap.NewRecord(comment)
+	db.Dbmap.Create(&comment)
+	pp.Println("Create: ", comment)
+
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
