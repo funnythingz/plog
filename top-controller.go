@@ -17,7 +17,9 @@ type TopViewModel struct {
 	Entry    string
 }
 
-func top(c web.C, w http.ResponseWriter, r *http.Request) {
+type TopController struct{}
+
+func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	permit := 60
 
 	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)

@@ -12,7 +12,10 @@ func main() {
 	db.DbConnect("development")
 	train.ConfigureHttpHandler(nil)
 
-	goji.Get("/", top)
+	// Index
+	topController := &TopController{}
+	goji.Get("/", topController.Index)
+
 	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entry)
 	goji.Get("/new", newEntry)
 	goji.Get("/entry", http.RedirectHandler("/", 301))
