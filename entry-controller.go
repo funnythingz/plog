@@ -6,11 +6,10 @@ import (
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
-	"github.com/k0kubun/pp"
 	_ "github.com/k0kubun/pp"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
-	_ "log"
+	"log"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -50,8 +49,6 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 	content := r.FormValue("entry[content]")
 	theme := r.FormValue("entry[theme]")
 
-	pp.Println(title, content, theme)
-
 	Entry := model.Entry{
 		Title:   title,
 		Content: content,
@@ -59,7 +56,7 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 	}
 
 	if _, err := govalidator.ValidateStruct(Entry); err != nil {
-		pp.Println(err.Error())
+		log.Println(err.Error())
 	}
 
 	errors := []string{}
@@ -83,14 +80,13 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 	if len(errors) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 		err := tpl.Execute(w, newViewModel)
-		pp.Println(err)
-		pp.Println(errors)
+		log.Println(err)
+		log.Println(errors)
 		return
 	}
 
 	db.Dbmap.NewRecord(Entry)
 	db.Dbmap.Create(&Entry)
-	pp.Println("Create: ", Entry)
 
 	url := fmt.Sprintf("/%d", Entry.Id)
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
@@ -101,8 +97,6 @@ func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Req
 	space_reg := regexp.MustCompile(`^[\s]+$`)
 	content := space_reg.ReplaceAllString(reg.ReplaceAllString(Sanitize(r.FormValue("comment[content]")), " "), "")
 
-	pp.Println(content)
-
 	entryId, _ := strconv.Atoi(c.URLParams["id"])
 	url := fmt.Sprintf("/%d", entryId)
 
@@ -112,7 +106,7 @@ func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Req
 	}
 
 	if _, err := govalidator.ValidateStruct(comment); err != nil {
-		pp.Println(err.Error())
+		log.Println(err.Error())
 	}
 
 	errors := []string{}
@@ -145,7 +139,6 @@ func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Req
 
 	db.Dbmap.NewRecord(comment)
 	db.Dbmap.Create(&comment)
-	pp.Println("Create: ", comment)
 
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
