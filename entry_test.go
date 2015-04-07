@@ -25,15 +25,15 @@ func TestCreateEntryModel(t *testing.T) {
 まぁこんなもんかな。
 `
 
-	createEntry := model.Entry{
+	e := model.Entry{
 		Title:   title,
 		Content: content,
 		Theme:   "blue",
 	}
 
 	db.DbConnect("test")
-	db.Dbmap.NewRecord(createEntry)
-	db.Dbmap.Create(&createEntry)
+	db.Dbmap.NewRecord(e)
+	db.Dbmap.Create(&e)
 
 	var entry model.Entry
 	db.Dbmap.First(&entry)
