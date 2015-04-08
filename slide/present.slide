@@ -58,28 +58,40 @@ https://github.com/funnythingz
 
 * ディレクトリ構造
 
+  .
   ├── Gomfile
   ├── app.go
+  ├── application-helper.go
   ├── assets
+  │   ├── fonts
   │   ├── images
   │   ├── javascripts
   │   └── stylesheets
-  ├── controller.go
+  ├── colors.go
   ├── database.yml
   ├── db
   │   └── dbmap.go
+  ├── entry-controller.go
+  ├── entry-viewmodel.go
   ├── entry_test.go
+  ├── exception-controller.go
   ├── helper
   │   └── helper.go
+  ├── meta-og.go
   ├── migrate
   │   ├── migration.go
   │   └── migration_t.go
   ├── models
+  │   ├── comment.go
   │   └── entry.go
+  ├── new-viewmodel.go
+  ├── paginate.go
+  ├── top-controller.go
+  ├── top-viewmodel.go
+  ├── view-helper.go
   └── views
       ├── 404.ace
       ├── layouts
-      │   └── layout.ace
       ├── new.ace
       ├── top.ace
       └── view.ace
@@ -90,14 +102,14 @@ https://github.com/funnythingz
 
 .code ../Gomfile
 
-  % gom install
-  % gom run app.go
+  % gom -development install
+  % gom exec gin
 
 * Minimalistic web framework - github.com/zenazn/goji
 
   ./app.go
 
-.code ../app.go
+.code ../app.go 11,36
 
 * Asset Management - github.com/shaoshing/train
 
@@ -107,9 +119,7 @@ https://github.com/funnythingz
       └── stylesheets
           └── main.scss
 
-.code ../app.go 13
-
-.code ../controller.go 49,51
+.code ../app.go 18
 
   % train
   -> clean bundled assets
@@ -124,7 +134,7 @@ https://github.com/funnythingz
 
 config
 
-.code ../database.yml.sample
+.code ../database.toml.sample
 
 * ORMapper - github.com/jinzhu/gorm
 
@@ -142,7 +152,7 @@ migration
 
 model
 
-.code ../models/entry.go 10,29
+.code ../models/entry.go 9,25
 
 * Converter
 
@@ -150,11 +160,11 @@ model
 
 *Sanitizer* - github.com/microcosm-cc/bluemonday
 
-.code ../controller.go 160,161
+.code ../entry-viewmodel.go 25,27
 
 * Truncate - github.com/funnythingz/sunnyday
 
-.code ../controller.go 49,55
+.code ../view-helper.go 9,18
 
 .code ../views/top.ace 23,28
 
@@ -162,7 +172,7 @@ model
 
 layout
 
-.code ../views/layouts/layout.ace 33,52
+.code ../views/layouts/layout.ace 37,53
 
 * template - github.com/yosssi/ace
 
@@ -174,13 +184,11 @@ view
 
 load
 
-.code ../controller.go 175,187
-
-.code ../controller.go 200,205
+.code ../entry-controller.go 21,37
 
 * validation
 
-.code ../controller.go 227,248
+.code ../entry-controller.go 64,76
 
 * test - testing
 
@@ -208,9 +216,9 @@ FastCGI化したGoアプリをSupervisorでデーモン化して動かしてい�
 buildしたあとにFastCGI化したplogをリロードする
 
   % git pull
-  % train
   % gom install
   % gom build
+  % train
   % sudo /etc/init.d/supervisor restart
 
 * 所感
