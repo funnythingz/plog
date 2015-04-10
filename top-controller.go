@@ -59,7 +59,6 @@ func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 			NextPage:     page + 1,
 		},
 		MetaOg: meta,
-		Entry:  "",
 	}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/top", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
