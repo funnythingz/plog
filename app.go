@@ -9,6 +9,7 @@ import (
 )
 
 var (
+	topController       = &TopController{}
 	entryController     = &EntryController{}
 	exceptionController = &ExceptionController{}
 )
@@ -18,7 +19,6 @@ func main() {
 	train.ConfigureHttpHandler(nil)
 
 	// Index
-	topController := &TopController{}
 	goji.Get("/", topController.Index)
 
 	// Entry
