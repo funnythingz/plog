@@ -33,3 +33,5 @@ _vendor
 .sass-cache/
 public/**/*.scss
 .css$:.css
+
+build.sh
