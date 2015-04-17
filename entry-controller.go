@@ -2,7 +2,6 @@ package main
 
 import (
 	"./db"
-	"./helper"
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"

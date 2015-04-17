@@ -15,7 +15,7 @@ var (
 )
 
 func main() {
-	db.DbConnect("development")
+	db.DbLoad()
 	train.ConfigureHttpHandler(nil)
 
 	// Index
