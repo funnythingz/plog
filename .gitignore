@@ -29,6 +29,7 @@ tmp
 gin-bin
 database.yml
 database.toml
+config.toml
 _vendor
 .sass-cache/
 public/**/*.scss
