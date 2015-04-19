@@ -1,0 +1,3 @@
+[Redis]
+address = "localhost:6379"
+auth_password = ""
