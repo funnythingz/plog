@@ -8,6 +8,7 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
+	"log"
 	"regexp"
 	"strconv"
 	"time"
@@ -47,9 +48,13 @@ func (vm *EntryViewModel) Store(entry model.Entry) EntryViewModel {
 }
 
 func pv(id string) string {
-	conn, err := redis.Dial("tcp", ":6379")
+	conn, err := redis.Dial("tcp", config.Redis.Address)
 	if err != nil {
 		panic(err)
+	}
+	_, err = conn.Do("AUTH", config.Redis.AuthPassword)
+	if err != nil {
+		log.Println("Redis AUTH error")
 	}
 	defer conn.Close()
 
