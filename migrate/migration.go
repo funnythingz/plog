@@ -7,18 +7,8 @@ import (
 )
 
 func main() {
-	db.DbConnect("development")
-	//reset()
-	//create()
+	db.DbLoad()
 	migrate()
-}
-
-func reset() {
-	log.Println(db.Dbmap.DropTableIfExists(&model.Entry{}))
-}
-
-func create() {
-	log.Println(db.Dbmap.CreateTable(&model.Entry{}))
 }
 
 func migrate() {

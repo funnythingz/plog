@@ -49,13 +49,13 @@ type connection struct {
 	Database string
 }
 
-type Config struct {
+type ConfigData struct {
 	Connection connection
 	Databases  map[string]env
 }
 
-func DbConfig() Config {
-	var config Config
+func DbConfig() ConfigData {
+	var config ConfigData
 	if _, err := toml.DecodeFile("database.toml", &config); err != nil {
 		log.Println(err)
 	}
@@ -63,47 +63,49 @@ func DbConfig() Config {
 	return config
 }
 
-func DbConnect(env string) {
-	config := DbConfig()
+var (
+	Config = DbConfig()
+)
 
+func DbConnect(env string) {
 	var (
-		dbEnv = config.Databases[env]
+		dbEnv = Config.Databases[env]
 
 		host = func() string {
 			if dbEnv.Host != "" {
 				return dbEnv.Host
 			}
-			return config.Connection.Host
+			return Config.Connection.Host
 		}()
 
 		username = func() string {
 			if dbEnv.Username != "" {
 				return dbEnv.Username
 			}
-			return config.Connection.Username
+			return Config.Connection.Username
 		}()
 
 		password = func() string {
 			if dbEnv.Password != "" {
 				return dbEnv.Password
 			}
-			return config.Connection.Password
+			return Config.Connection.Password
 		}()
 
 		database = func() string {
 			if dbEnv.Database != "" {
 				return dbEnv.Database
 			}
-			return config.Connection.Database
+			return Config.Connection.Database
 		}()
 	)
 
 	DbOpen(
-		config.Connection.Adapter,
+		Config.Connection.Adapter,
 		host,
 		username,
 		password,
 		database,
-		config.Connection.Encoding,
+		Config.Connection.Encoding,
 	)
 }

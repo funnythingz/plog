@@ -18,6 +18,9 @@ func main() {
 	db.DbLoad()
 	train.ConfigureHttpHandler(nil)
 
+	// Assets
+	goji.Get("/assets/*", http.FileServer(http.Dir("./public/")))
+
 	// Index
 	goji.Get("/", topController.Index)
 
