@@ -119,7 +119,7 @@ https://github.com/funnythingz
       └── stylesheets
           └── main.scss
 
-.code ../app.go 18
+.code ../app.go 19
 
   % train
   -> clean bundled assets
@@ -146,7 +146,7 @@ open
 
 migration
 
-.code ../migrate/migration.go 9,26
+.code ../migrate/migration.go 9,16
 
 * ORMapper - github.com/jinzhu/gorm
 
