@@ -134,7 +134,7 @@ https://github.com/funnythingz
 
 config
 
-.code ../database.toml.sample
+.code ../db/database.toml.sample
 
 * ORMapper - github.com/jinzhu/gorm
 
