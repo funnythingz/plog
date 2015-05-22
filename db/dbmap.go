@@ -56,7 +56,7 @@ type ConfigData struct {
 
 func DbConfig() ConfigData {
 	var config ConfigData
-	if _, err := toml.DecodeFile("database.toml", &config); err != nil {
+	if _, err := toml.DecodeFile("db/database.toml", &config); err != nil {
 		log.Println(err)
 	}
 

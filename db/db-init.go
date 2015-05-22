@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
@@ -15,7 +16,8 @@ func DbLoad() {
 		DbConnect("production")
 	} else {
 		DbConnect("development")
+		Dbmap.LogMode(true)
 	}
 
-	log.Println(env)
+	log.Println(fmt.Sprintf("mode: %s", env))
 }
