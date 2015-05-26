@@ -15,7 +15,7 @@ var (
 )
 
 func main() {
-	db.DbLoad()
+	db.Connect()
 	train.ConfigureHttpHandler(nil)
 
 	// Assets
