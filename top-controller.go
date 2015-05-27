@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./helper"
 	"./models"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"

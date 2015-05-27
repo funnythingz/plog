@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./helper"
 	"github.com/funnythingz/sunnyday"
 	"github.com/shaoshing/train"
 	"html/template"
@@ -13,6 +14,6 @@ var ViewHelper = template.FuncMap{
 		return sunnyday.Truncate(s, c)
 	},
 	"sanitize": func(s string) string {
-		return Sanitize(s)
+		return helper.Sanitizer(s)
 	},
 }

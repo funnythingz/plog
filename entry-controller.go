@@ -2,6 +2,7 @@ package main
 
 import (
 	"./db"
+	"./helper"
 	"./models"
 	"fmt"
 	"github.com/asaskevich/govalidator"
@@ -94,7 +95,7 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Request) {
 	reg := regexp.MustCompile(`([\s]{2,}|\n|^[\s]+$)`)
 	space_reg := regexp.MustCompile(`^[\s]+$`)
-	content := space_reg.ReplaceAllString(reg.ReplaceAllString(Sanitize(r.FormValue("comment[content]")), " "), "")
+	content := space_reg.ReplaceAllString(reg.ReplaceAllString(helper.Sanitizer(r.FormValue("comment[content]")), " "), "")
 
 	entryId, _ := strconv.Atoi(c.URLParams["id"])
 	url := fmt.Sprintf("/%d", entryId)
