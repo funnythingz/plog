@@ -1,4 +1,4 @@
-package main
+package config
 
 import (
 	"github.com/BurntSushi/toml"
@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	config = PlogConfig()
+	Param = AppConfig()
 )
 
 type RedisConfig struct {
@@ -18,9 +18,9 @@ type Config struct {
 	Redis RedisConfig
 }
 
-func PlogConfig() Config {
+func AppConfig() Config {
 	var config Config
-	if _, err := toml.DecodeFile("config.toml", &config); err != nil {
+	if _, err := toml.DecodeFile("config/config.toml", &config); err != nil {
 		log.Println(err)
 	}
 

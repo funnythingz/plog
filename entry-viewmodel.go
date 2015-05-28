@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./config"
 	"./models"
 	"fmt"
 	"github.com/funnythingz/sunnyday"
@@ -48,11 +49,11 @@ func (vm *EntryViewModel) Store(entry model.Entry) EntryViewModel {
 }
 
 func pv(id string) string {
-	conn, err := redis.Dial("tcp", config.Redis.Address)
+	conn, err := redis.Dial("tcp", config.Param.Redis.Address)
 	if err != nil {
 		panic(err)
 	}
-	_, err = conn.Do("AUTH", config.Redis.AuthPassword)
+	_, err = conn.Do("AUTH", config.Param.Redis.AuthPassword)
 	if err != nil {
 		log.Println("Redis AUTH error")
 	}
