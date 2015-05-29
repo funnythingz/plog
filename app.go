@@ -9,9 +9,9 @@ import (
 )
 
 var (
-	topController       = &TopController{}
-	entryController     = &EntryController{}
-	exceptionController = &ExceptionController{}
+	topController       = TopController{}
+	entryController     = EntryController{}
+	exceptionController = ExceptionController{}
 )
 
 func main() {
