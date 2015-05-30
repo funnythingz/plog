@@ -15,10 +15,11 @@ var (
 )
 
 func main() {
+	// Database
 	db.Connect()
-	train.ConfigureHttpHandler(nil)
 
 	// Assets
+	train.ConfigureHttpHandler(nil)
 	goji.Get("/assets/*", http.FileServer(http.Dir("./public/")))
 
 	// Index
