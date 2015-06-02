@@ -1,8 +1,8 @@
-package main
+package viewmodels
 
 import (
-	"./config"
-	"./models"
+	"../config"
+	"../models"
 	"fmt"
 	"github.com/funnythingz/sunnyday"
 	"github.com/garyburd/redigo/redis"

@@ -1,4 +1,4 @@
-package main
+package viewmodels
 
 type Paginate struct {
 	IsEndpoint   bool

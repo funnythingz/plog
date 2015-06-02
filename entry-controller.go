@@ -4,6 +4,7 @@ import (
 	"./db"
 	"./helper"
 	"./models"
+	"./viewmodels"
 	"fmt"
 	"github.com/asaskevich/govalidator"
 	_ "github.com/k0kubun/pp"
@@ -27,7 +28,7 @@ func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	entryViewModel := &EntryViewModel{}
+	entryViewModel := viewmodels.EntryViewModel{}
 
 	tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, entryViewModel.Store(entry)); err != nil {
@@ -38,7 +39,7 @@ func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request)
 
 func (_ *EntryController) New(c web.C, w http.ResponseWriter, r *http.Request) {
 	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
-	if err := tpl.Execute(w, NewViewModel{Colors: Colors, Theme: "white"}); err != nil {
+	if err := tpl.Execute(w, viewmodels.NewViewModel{Colors: Colors, Theme: "white"}); err != nil {
 		helper.InternalServerErrorCheck(err, w)
 	}
 }
@@ -75,7 +76,7 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 		errors = append(errors, "input Content minimum is 5 and maximum is 1000 character.")
 	}
 
-	newViewModel := NewViewModel{Entry: Entry, Error: errors, Theme: theme, MetaOg: MetaOg{}, Colors: Colors}
+	newViewModel := viewmodels.NewViewModel{Entry: Entry, Error: errors, Theme: theme, MetaOg: viewmodels.MetaOg{}, Colors: Colors}
 
 	if len(errors) > 0 {
 		tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
@@ -127,7 +128,7 @@ func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Req
 			return
 		}
 
-		entryViewModel := &EntryViewModel{}
+		entryViewModel := viewmodels.EntryViewModel{}
 		entryViewModel.Flash = errors
 
 		tpl, _ := ace.Load("views/layouts/layout", "views/view", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})

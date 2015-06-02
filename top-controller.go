@@ -3,6 +3,7 @@ package main
 import (
 	"./helper"
 	"./models"
+	"./viewmodels"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
 	"net/http"
@@ -41,7 +42,7 @@ func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 		isEndpoint = true
 	}
 
-	meta := MetaOg{
+	meta := viewmodels.MetaOg{
 		Title: "",
 		Type:  "website",
 		//TODO: Url: "",
@@ -49,9 +50,9 @@ func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 		Description: "plog is a simple diary for people all over the world.",
 	}
 
-	TopViewModel := TopViewModel{
+	TopViewModel := viewmodels.TopViewModel{
 		Entries: entries,
-		Paginate: Paginate{
+		Paginate: viewmodels.Paginate{
 			IsFirstpoint: isFirstpoint,
 			IsEndpoint:   isEndpoint,
 			CurrentPage:  page,

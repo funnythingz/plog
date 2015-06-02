@@ -1,7 +1,7 @@
-package main
+package viewmodels
 
 import (
-	"./models"
+	"../models"
 )
 
 type NewViewModel struct {
