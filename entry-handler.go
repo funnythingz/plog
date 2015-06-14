@@ -17,14 +17,14 @@ import (
 	"unicode/utf8"
 )
 
-type EntryController struct{}
+type EntryHandler struct{}
 
-func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request) {
+func (_ *EntryHandler) Entry(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	entry, entryNotFound := model.FindEntry(c.URLParams["id"])
 
 	if entryNotFound {
-		exceptionController.NotFound(w, r)
+		exceptionHandler.NotFound(w, r)
 		return
 	}
 
@@ -37,14 +37,14 @@ func (_ *EntryController) Entry(c web.C, w http.ResponseWriter, r *http.Request)
 
 }
 
-func (_ *EntryController) New(c web.C, w http.ResponseWriter, r *http.Request) {
+func (_ *EntryHandler) New(c web.C, w http.ResponseWriter, r *http.Request) {
 	tpl, _ := ace.Load("views/layouts/layout", "views/new", &ace.Options{DynamicReload: true, FuncMap: ViewHelper})
 	if err := tpl.Execute(w, viewmodels.NewViewModel{Colors: Colors, Theme: "white"}); err != nil {
 		helper.InternalServerErrorCheck(err, w)
 	}
 }
 
-func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request) {
+func (_ *EntryHandler) Create(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	title := r.FormValue("entry[title]")
 	content := r.FormValue("entry[content]")
@@ -93,7 +93,7 @@ func (_ *EntryController) Create(c web.C, w http.ResponseWriter, r *http.Request
 	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
 
-func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Request) {
+func (_ *EntryHandler) AddComment(c web.C, w http.ResponseWriter, r *http.Request) {
 	reg := regexp.MustCompile(`([\s]{2,}|\n|^[\s]+$)`)
 	space_reg := regexp.MustCompile(`^[\s]+$`)
 	content := space_reg.ReplaceAllString(reg.ReplaceAllString(helper.Sanitizer(r.FormValue("comment[content]")), " "), "")
@@ -124,7 +124,7 @@ func (_ *EntryController) AddComment(c web.C, w http.ResponseWriter, r *http.Req
 		entry, entryNotFound := model.FindEntry(c.URLParams["id"])
 
 		if entryNotFound {
-			exceptionController.NotFound(w, r)
+			exceptionHandler.NotFound(w, r)
 			return
 		}
 

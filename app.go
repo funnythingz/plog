@@ -9,9 +9,9 @@ import (
 )
 
 var (
-	topController       = TopController{}
-	entryController     = EntryController{}
-	exceptionController = ExceptionController{}
+	topHandler       = TopHandler{}
+	entryHandler     = EntryHandler{}
+	exceptionHandler = ExceptionHandler{}
 )
 
 func main() {
@@ -23,17 +23,17 @@ func main() {
 	goji.Get("/assets/*", http.FileServer(http.Dir("./public/")))
 
 	// Index
-	goji.Get("/", topController.Index)
+	goji.Get("/", topHandler.Index)
 
 	// Entry
-	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entryController.Entry)
-	goji.Get("/new", entryController.New)
+	goji.Get(regexp.MustCompile(`^/(?P<id>\d+)$`), entryHandler.Entry)
+	goji.Get("/new", entryHandler.New)
 	goji.Get("/entry", http.RedirectHandler("/", 301))
-	goji.Post("/entry", entryController.Create)
-	goji.Post(regexp.MustCompile(`^/(?P<id>\d+)/comment$`), entryController.AddComment)
+	goji.Post("/entry", entryHandler.Create)
+	goji.Post(regexp.MustCompile(`^/(?P<id>\d+)/comment$`), entryHandler.AddComment)
 
 	// Exception
-	goji.NotFound(exceptionController.NotFound)
+	goji.NotFound(exceptionHandler.NotFound)
 
 	// Serve
 	goji.Serve()

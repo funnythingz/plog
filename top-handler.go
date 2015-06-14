@@ -11,9 +11,9 @@ import (
 	"strconv"
 )
 
-type TopController struct{}
+type TopHandler struct{}
 
-func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
+func (_ *TopHandler) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	permit := 60
 
 	urlQuery, _ := url.ParseQuery(r.URL.RawQuery)
@@ -28,7 +28,7 @@ func (_ *TopController) Index(c web.C, w http.ResponseWriter, r *http.Request) {
 	entries, nextEntries := model.FindEntriesIndex(permit, page)
 
 	if len(entries) == 0 && page > 1 {
-		exceptionController.NotFound(w, r)
+		exceptionHandler.NotFound(w, r)
 		return
 	}
 

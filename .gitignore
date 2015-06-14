@@ -27,6 +27,7 @@ _testmain.go
 *.swp
 tmp
 gin-bin
+bin
 database.yml
 config.toml
 _vendor
