@@ -1,12 +1,12 @@
 package main
 
 import (
-	"./db"
-	"./helper"
-	"./models"
-	"./viewmodels"
 	"fmt"
 	"github.com/asaskevich/govalidator"
+	"github.com/funnythingz/plog/db"
+	"github.com/funnythingz/plog/helper"
+	"github.com/funnythingz/plog/models"
+	"github.com/funnythingz/plog/viewmodels"
 	_ "github.com/k0kubun/pp"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"

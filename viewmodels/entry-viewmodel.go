@@ -1,9 +1,9 @@
 package viewmodels
 
 import (
-	"../config"
-	"../models"
 	"fmt"
+	"github.com/funnythingz/plog/config"
+	"github.com/funnythingz/plog/models"
 	"github.com/funnythingz/sunnyday"
 	"github.com/garyburd/redigo/redis"
 	"github.com/k0kubun/pp"

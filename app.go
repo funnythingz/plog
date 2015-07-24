@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./db"
+	"github.com/funnythingz/plog/db"
 	"github.com/shaoshing/train"
 	"github.com/zenazn/goji"
 	"net/http"

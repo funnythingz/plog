@@ -1,7 +1,7 @@
 package viewmodels
 
 import (
-	"../models"
+	"github.com/funnythingz/plog/models"
 )
 
 type TopViewModel struct {

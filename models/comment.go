@@ -1,7 +1,7 @@
 package model
 
 import (
-	_ "../db"
+	_ "github.com/funnythingz/plog/db"
 	_ "github.com/k0kubun/pp"
 	_ "log"
 	"time"

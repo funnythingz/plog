@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./helper"
-	"./models"
-	"./viewmodels"
+	"github.com/funnythingz/plog/helper"
+	"github.com/funnythingz/plog/models"
+	"github.com/funnythingz/plog/viewmodels"
 	"github.com/yosssi/ace"
 	"github.com/zenazn/goji/web"
 	"net/http"

@@ -1,10 +1,10 @@
 package main
 
 import (
-	"./db"
-	_ "./helper"
-	"./models"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/funnythingz/plog/db"
+	_ "github.com/funnythingz/plog/helper"
+	"github.com/funnythingz/plog/models"
 	"github.com/russross/blackfriday"
 	_ "log"
 	"strings"

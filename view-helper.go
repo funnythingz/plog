@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./helper"
+	"github.com/funnythingz/plog/helper"
 	"github.com/funnythingz/sunnyday"
 	"github.com/shaoshing/train"
 	"html/template"
