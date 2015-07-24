@@ -38,3 +38,4 @@ public/**/*.scss
 # production
 build.sh
 database.toml
+node_modules
