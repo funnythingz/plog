@@ -56,46 +56,6 @@ https://github.com/funnythingz
 
 * こんなGoパッケージを使ったよ！
 
-* ディレクトリ構造
-
-  .
-  ├── Gomfile
-  ├── app.go
-  ├── application-helper.go
-  ├── assets
-  │   ├── fonts
-  │   ├── images
-  │   ├── javascripts
-  │   └── stylesheets
-  ├── colors.go
-  ├── database.yml
-  ├── db
-  │   └── dbmap.go
-  ├── entry-controller.go
-  ├── entry-viewmodel.go
-  ├── entry_test.go
-  ├── exception-controller.go
-  ├── helper
-  │   └── helper.go
-  ├── meta-og.go
-  ├── migrate
-  │   ├── migration.go
-  │   └── migration_t.go
-  ├── models
-  │   ├── comment.go
-  │   └── entry.go
-  ├── new-viewmodel.go
-  ├── paginate.go
-  ├── top-controller.go
-  ├── top-viewmodel.go
-  ├── view-helper.go
-  └── views
-      ├── 404.ace
-      ├── layouts
-      ├── new.ace
-      ├── top.ace
-      └── view.ace
-
 * Go Manager - github.com/mattn/gom
 
   ./Gomfile
@@ -160,7 +120,7 @@ model
 
 *Sanitizer* - github.com/microcosm-cc/bluemonday
 
-.code ../entry-viewmodel.go 25,27
+.code ../viewmodels/entry-viewmodel.go 25,27
 
 * Truncate - github.com/funnythingz/sunnyday
 
@@ -184,11 +144,11 @@ view
 
 load
 
-.code ../entry-controller.go 21,37
+.code ../entry-handler.go 21,37
 
 * validation
 
-.code ../entry-controller.go 64,76
+.code ../entry-handler.go 64,76
 
 * test - testing
 
